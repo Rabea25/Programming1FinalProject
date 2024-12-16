@@ -25,3 +25,8 @@ struct room{
     string type;
     string price;
 };
+
+
+vector<user> users;
+vector<reservation> reservations;
+vector<room> rooms;

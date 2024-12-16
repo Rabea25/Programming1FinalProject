@@ -3,12 +3,11 @@
 #include "login.h"
 #include "colors.h"
 #include "io.h"
+#include "edit.h"
+
 using namespace std;
 
 bool loggedin = false;
-vector<user> users;
-vector<reservation> reservations;
-vector<room> rooms;
 
 
 void menu(){
@@ -63,7 +62,7 @@ void menu(){
                 //viewCustomerDetails();
                 break;
             case 7:
-                //editReservationDetails();
+                editReservationDetails();
                 break;
             case 8:
                 //query();
