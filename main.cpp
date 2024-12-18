@@ -4,6 +4,7 @@
 #include "colors.h"
 #include "io.h"
 #include "edit.h"
+#include "cancel.h"
 
 using namespace std;
 
@@ -50,7 +51,7 @@ void menu(){
                 //checkIn();
                 break;
             case 3:
-                //cancelReservation();
+                cancelReservation();
                 break;
             case 4:
                 //checkOut();

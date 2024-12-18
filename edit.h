@@ -5,8 +5,9 @@
 // i think it's done bas i did go to the techincal writing w nemt fel nos fa momken akon naset 7aga xD
 
 
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 #include "structs.h"
+#include "colors.h"
 
 using namespace std;
 
