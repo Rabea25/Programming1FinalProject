@@ -1,6 +1,4 @@
 // just call editReservationDetails() when you want to edit :)
-// missing the search reservation by id and room number
-// missing the search room by category
 // missing the update room status
 // i think it's done bas i did go to the techincal writing w nemt fel nos fa momken akon naset 7aga xD
 
@@ -8,6 +6,8 @@
 #include <bits/stdc++.h>
 #include "structs.h"
 #include "colors.h"
+#include "search.h"
+
 
 using namespace std;
 
@@ -44,7 +44,7 @@ void editReservations(int idx) // takes index in the reservations vector
     if(s != "")
     {
         int room_id;
-        //room_id = searchRoomByCategory(s);-----------------------------------------------------------------------------------------------------------------------
+        room_id = searchRoomByCategory(s);
         if(room_id == -1)cout<<"Sorry there aren't any available rooms of the chosen category"<<endl;
         else 
         {
@@ -96,7 +96,7 @@ int editReservationDetails()
         {
             cout<<"Reservation ID: ";
             cin>>reservation_ID;
-            //temp = searchResrvationByID(reservation_ID);------------------------------------------------------------
+            temp = searchReservationByID(reservation_ID);
             if(temp == -1)cout<<"Sorry this ID doesn't exist, please try again"<<endl;
 
         }while(temp == -1);
@@ -111,7 +111,7 @@ int editReservationDetails()
         {
             cout<<"Room Number: ";
             cin>>room_no;
-            //temp = searchReservationByRoomNumber(room_no);----------------------------------------------------------------------------------------------
+            temp = searchReservationByRoomNumber(room_no);
             if(temp == -1) cout<<"Sorry this room doesn't exist, please try again"<<endl;
             
         }while(temp == -1);

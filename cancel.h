@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #include "structs.h"
 #include "colors.h"
+#include "search.h"
 
 using namespace std;
 
@@ -10,7 +11,7 @@ void CANCEL(int idx)// takes index in the reservations vector
 {
     reservation toBeCanceled = reservations[idx];
     int room_idx;
-    //room_idx = searchRoomBynumber(toBeCanceled.room_no);-------------------------------------------------------------
+    room_idx = searchRoomByNumber(toBeCanceled.room_no);
     if(rooms[room_idx].status == "Confimed")
     {
         cout<<"Sorry you can't cancel a confirmed room"<<endl;
@@ -18,6 +19,8 @@ void CANCEL(int idx)// takes index in the reservations vector
     }
     reservations.erase(reservations.begin() + idx);
     rooms[room_idx].status = "Available";
+
+    cout<<" Successfully canceled the reservation "<<endl;
     return;
 }
 
@@ -50,7 +53,7 @@ int cancelReservation()
         {
             cout<<"Reservation ID: ";
             cin>>reservation_ID;
-            //temp = searchResrvationByID(reservation_ID);------------------------------------------------------------
+            temp = searchReservationByID(reservation_ID);
             if(temp == -1)cout<<"Sorry this ID doesn't exist, please try again"<<endl;
 
         }while(temp == -1);
@@ -65,7 +68,7 @@ int cancelReservation()
         {
             cout<<"Room Number: ";
             cin>>room_no;
-            //temp = searchReservationByRoomNumber(room_no);----------------------------------------------------------------------------------------------
+            temp = searchReservationByRoomNumber(room_no);
             if(temp == -1) cout<<"Sorry this room doesn't exist, please try again"<<endl;
             
         }while(temp == -1);
