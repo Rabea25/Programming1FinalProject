@@ -5,11 +5,11 @@
 #include "io.h"
 #include "edit.h"
 #include "cancel.h"
+#include "reserve.h"
 
 using namespace std;
 
 bool loggedin = false;
-
 
 void menu(){
     int opt;
@@ -20,7 +20,7 @@ void menu(){
         cout<<"[2] "<<setColor(red, black)<<"Quit"<<resetColor()<<endl;
         cin>>opt;
         if(opt==1){
-            loggedin |= login(users);
+            loggedin = login(users);
         } 
         else if(opt==2){
             cout<<"Goodbye!"<<endl;
@@ -45,7 +45,7 @@ void menu(){
         cin>>opt;
         switch(opt){
             case 1:
-                //reserveRoom();
+                reserveRoom();
                 break;
             case 2:
                 //checkIn();
@@ -60,20 +60,21 @@ void menu(){
                 //checkRoomAvailability();
                 break;
             case 6:
-                //viewCustomerDetails();
+                viewCustomerDetails();
                 break;
             case 7:
                 editReservationDetails();
                 break;
             case 8:
-                //query();
+                query();
                 break;
             case 9:
-                //reservationReport();
+                reservationReport();
                 break;
             case 10:
                 cout<<endl<<setColor(red, black)<<"--Logging Out--"<<resetColor()<<endl<<endl;
                 loggedin = 0;
+                save(reservations, rooms);
                 break;
             case 11:
                 cout<<setColor(red, black)<<"--Logging Out--"<<resetColor()<<endl;
@@ -88,18 +89,8 @@ void menu(){
 
 int main(){
     users = loadUsers();
-    loginAttempts = 3;
-    reservation r;
-    r.id = "1";
-    r.room_no = "101";
-    r.confirm = "confirmed";
-    r.name = "John Doe";
-    r.nat_id = "123456789";
-    r.nights = "3";
-    r.check_in = "10-10-2025";
-    r.email = "mm@gmail.com";
-    r.phone = "123456789";
-    reservations.push_back(r);
+    reservations = loadReservations();
+    rooms = loadRooms();
     while(1){
         menu();
     }

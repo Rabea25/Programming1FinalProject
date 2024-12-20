@@ -28,8 +28,69 @@ vector<user> loadUsers(){
     return users;
 }
 
+vector<reservation> loadReservations(){
+    vector<reservation> reservations;
+    ifstream file("reservations.txt");
+    if(file.is_open()){
+        string line;
+        while(getline(file, line)){
+            string tmp="";
+            reservation r;
+            int i=0;
+            for(char c:line){
+                if(c==','){
+                    if(i==0){r.id = tmp;tmp = "";i++;}
+                    else if(i==1){r.room_no = tmp;tmp = "";i++;}
+                    else if(i==2){r.confirm = tmp;tmp = "";i++;}
+                    else if(i==3){r.name = tmp;tmp = "";i++;}
+                    else if(i==4){r.nat_id = tmp;tmp = "";i++;}
+                    else if(i==5){r.nights = tmp;tmp = "";i++;}
+                    else if(i==6){r.check_in = tmp;tmp = "";i++;}
+                    else if(i==7){r.email = tmp;tmp = "";i++;}
+                }
+                else tmp+=c;
+            }
+            r.phone = tmp;
+
+            reservations.push_back(r);
+        }
+    }
+    else cout<<setColor(white, red)<<"Error opening reservations.txt file."<<resetColor()<<endl;
+    file.close();
+
+    return reservations;
+}
+
+vector<room> loadRooms(){
+    vector<room> rooms;
+    ifstream file("rooms.txt");
+    if(file.is_open()){
+        string line;
+        while(getline(file, line)){
+            string tmp="";
+            room r;
+            int i=0;
+            for(char c:line){
+                if(c==' '){
+                    if(i==0){r.room_no = tmp;tmp = "";i++;}
+                    else if(i==1){r.status = tmp;tmp = "";i++;}
+                    else if(i==2){r.type = tmp;tmp = "";i++;}
+                }
+                else tmp+=c;
+            }
+            r.price = tmp;
+
+            rooms.push_back(r);
+        }
+    }
+    else cout<<setColor(white, red)<<"Error opening reservations.txt file."<<resetColor()<<endl;
+    file.close();
+
+    return rooms;
+}
+
 void save(vector<reservation> reservations, vector<room> rooms){
-    ofstream file("Reservation.txt");
+    ofstream file("reservations.txt");
     if(file.is_open()){
         for(reservation r:reservations){
             file<<r.id<<","<<r.room_no<<","<<r.confirm<<","<<r.name<<","<<r.nat_id<<","<<r.nights<<","<<r.check_in<<","<<r.email<<","<<r.phone<<endl;

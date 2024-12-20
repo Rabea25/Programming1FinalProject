@@ -1,16 +1,13 @@
 // just call editReservationDetails() when you want to edit :)
 // missing the update room status
-// i think it's done bas i did go to the techincal writing w nemt fel nos fa momken akon naset 7aga xD
-
+// i think it's done bas i did go to the techincal writing w nemt fel nos fa momken akon naset 7aga xD // lazy ass
 
 #include <bits/stdc++.h>
 #include "structs.h"
 #include "colors.h"
 #include "search.h"
 
-
 using namespace std;
-
 
 void editReservations(int idx) // takes index in the reservations vector
 {
@@ -55,20 +52,10 @@ void editReservations(int idx) // takes index in the reservations vector
         }
     }
 
-
     cout<<"Number of nights: ";
     getline(cin,s);
     reservations[idx].nights = (s==""? reservations[idx].nights : s );
-
 }
-
-
-
-
-
-
-
-
 
 int editReservationDetails()
 {
@@ -84,10 +71,9 @@ int editReservationDetails()
     {
         cout<<"Please enter a valid option"<<endl;
         cin>>option;
-
     }
 
-    if(option == "0")return -1;
+    if(option == "0") return -1;
     if(option == "1")
     {
         string reservation_ID;
@@ -116,9 +102,8 @@ int editReservationDetails()
             
         }while(temp == -1);
 
-        editReservations( temp );
+        editReservations(temp);
     }
 
     return 1;
 }
-

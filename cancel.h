@@ -5,14 +5,12 @@
 
 using namespace std;
 
-
-
 void CANCEL(int idx)// takes index in the reservations vector
 {
     reservation toBeCanceled = reservations[idx];
     int room_idx;
     room_idx = searchRoomByNumber(toBeCanceled.room_no);
-    if(rooms[room_idx].status == "Confimed")
+    if(rooms[room_idx].status == "Confirmed")
     {
         cout<<"Sorry you can't cancel a confirmed room"<<endl;
         return;
@@ -23,9 +21,6 @@ void CANCEL(int idx)// takes index in the reservations vector
     cout<<" Successfully canceled the reservation "<<endl;
     return;
 }
-
-
-
 
 int cancelReservation()
 {
@@ -41,7 +36,6 @@ int cancelReservation()
     {
         cout<<"Please enter a valid option"<<endl;
         cin>>option;
-
     }
 
     if(option == "0")return -1;
