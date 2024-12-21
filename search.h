@@ -77,7 +77,7 @@ void viewCustomerDetails()
     if(option == 1){
         int idx;
         do{
-            cout<<"Enter ID: "<<endl;
+            cout<<"Enter ID: ";
             string id;
             cin>>id;
             idx = searchReservationByID(id);
@@ -89,7 +89,7 @@ void viewCustomerDetails()
     } else{
         int idx;
         do{
-            cout<<"Enter Room No: "<<endl;
+            cout<<"Enter Room No: ";
             string room_no;
             cin>>room_no;
             idx = searchReservationByRoomNumber(room_no);
@@ -118,7 +118,7 @@ void query()
     }
     if(option == 1){
         int idx;
-        cout<<"Enter Name: "<<endl;
+        cout<<"Enter Name: ";
         string name;
         cin.ignore();
         getline(cin, name);
@@ -135,7 +135,7 @@ void query()
         int idx;
         string room_no;
         do{
-            cout<<"Enter Room No: "<<endl;
+            cout<<"Enter Room No: ";
             cin>>room_no;
             idx = searchRoomByNumber(room_no);
         }while(idx == -1);

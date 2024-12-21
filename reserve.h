@@ -28,28 +28,28 @@ void reserveRoom()
     reservation newReservation;
     cout<<endl<<"Adding a reservation"<<endl;
 
-    cout<<"Enter Name: "<<endl;
+    cout<<"Enter Name: ";
     cin.ignore();
     getline(cin, newReservation.name);
 
-    cout<<"Enter national ID: "<<endl;
+    cout<<"Enter national ID: ";
     cin>>newReservation.nat_id;
 
-    cout<<"Enter e-mail: "<<endl;
+    cout<<"Enter e-mail: ";
     cin>>newReservation.email;
 
-    cout<<"Enter phone no: "<<endl;
+    cout<<"Enter phone no: ";
     cin>>newReservation.phone;
 
 
     //---------------temporary placeholders for testing until checkAvailibilty func is finished----------//
-    cout<<"Enter Check In date(DD-MM-YYYY): "<<endl;
+    cout<<"Enter Check In date(DD-MM-YYYY): ";
     cin>>newReservation.check_in;
 
-    cout<<"Enter no of nights: "<<endl;
+    cout<<"Enter no of nights: ";
     cin>>newReservation.nights;
     
-    cout<<"Enter room no: "<<endl;
+    cout<<"Enter room no: ";
     cin>>newReservation.room_no;
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -70,25 +70,15 @@ void reserveRoom()
     // } while(checkAvailablity(option, newReservation.check_in, newReservation.nights) == -1);
     //newReservation.room_no = checkAvailablity(option, newReservation.check_in, newReservation.nights);
 
-    for(int no=1;no<101;no++){
-        bool exists = false;
-        for(auto r:reservations){
-            if(stoi(r.id) == no) exists = true;
-        }
-        if(!exists) {newReservation.id = "1432" + to_string(no);break;}
-    }
-
-
-    newReservation.confirm = "unconfirmed";
-
-    cout<<" Successfully canceled the reservation "<<endl;
-
+    newReservation.id = to_string(resID);
+    newID();
+    newReservation.confirm = "Unconfirmed";
+    cout<<endl<<setColor(white, green)<<" Reservation is successful, reservation id:  "<<newReservation.id<<resetColor()<<endl<<endl;
     reservations.push_back(newReservation);
-
     sortReservations();
 }
 
-void reservationReport()
+/*void reservationReport()
 {
     cout<<endl<<" Reservation Report! "<<endl;
     cout<<"ID\tRoom\tStatus\t\tDate\t\tNo of nights\tName\t\tNational ID\t\tE-mail\t\t\tPhone\n";
@@ -97,3 +87,4 @@ void reservationReport()
     }
     cout<<"\n\n";
 }
+*/

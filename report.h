@@ -30,8 +30,9 @@ void reservationReport(){
 	}
 
 	cout<<"Reservations on "<<date<<":"<<endl<<endl;
-	for(reservation i:report){
-		cout<<i.name<<" in room "<<i.room_no<<" for "<<i.nights<<" nights."<<endl;
+	cout<<"ID\tRoom\tStatus\t\tDate\t\tNo of nights\tName\t\tNational ID\t\tE-mail\t\t\tPhone"<<endl;
+	for(reservation r:report){
+		cout<<r.id<<"\t"<<r.room_no<<"\t"<<r.confirm<<"\t"<<r.check_in<<"\t"<<r.nights<<"\t\t"<<r.name<<"\t"<<r.nat_id<<"\t\t"<<r.email<<"\t"<<r.phone<<endl;
 	}
 	cout<<endl;
 	return;

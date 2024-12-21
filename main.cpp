@@ -6,7 +6,7 @@
 #include "edit.h"
 #include "cancel.h"
 #include "reserve.h"
-
+#include "report.h"
 using namespace std;
 
 bool loggedin = false;
@@ -26,7 +26,7 @@ void menu(){
             cout<<"Goodbye!"<<endl;
             exit(0);
         }
-        else cout<<"Invalid option. ";
+        else cout<<setColor(white,yellow)<<endl<<"Invalid input."<<resetColor()<<endl<<endl;
     }
     cout<<setColor(brightWhite, black)<<"Welcome staff member, this is the main menu:"<<endl<<endl;
     while(loggedin){ 
@@ -82,12 +82,13 @@ void menu(){
                 save(reservations, rooms);
                 exit(0);
             default:
-                cout<<endl<<"Invalid input, options are numbered 1 through 11. "<<endl<<endl;
+                cout<<setColor(white,yellow)<<endl<<"Invalid input, options are numbered 1 through 11."<<resetColor()<<endl<<endl;
         }
     }
 }
 
 int main(){
+    cout<<resetColor();
     users = loadUsers();
     reservations = loadReservations();
     rooms = loadRooms();

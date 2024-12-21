@@ -51,7 +51,7 @@ vector<reservation> loadReservations(){
                 else tmp+=c;
             }
             r.phone = tmp;
-
+            resID = max(resID, stoi(r.id)+1);
             reservations.push_back(r);
         }
     }
@@ -90,7 +90,7 @@ vector<room> loadRooms(){
 }
 
 void save(vector<reservation> reservations, vector<room> rooms){
-    ofstream file("reservations.txt");
+    ofstream file("Reservation.txt");
     if(file.is_open()){
         for(reservation r:reservations){
             file<<r.id<<","<<r.room_no<<","<<r.confirm<<","<<r.name<<","<<r.nat_id<<","<<r.nights<<","<<r.check_in<<","<<r.email<<","<<r.phone<<endl;

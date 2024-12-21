@@ -18,7 +18,7 @@ void CANCEL(int idx)// takes index in the reservations vector
     reservations.erase(reservations.begin() + idx);
     rooms[room_idx].status = "Available";
 
-    cout<<" Successfully canceled the reservation "<<endl;
+    cout<<endl<<setColor(white, green)<<" Successfully cancelled the reservation. "<<resetColor()<<endl<<endl;
     return;
 }
 
