@@ -31,7 +31,7 @@ vector<user> users;
 vector<reservation> reservations;
 vector<room> rooms;
 
-int resID = 1;
+long long resID = 1;
 
 void newID(){
     //for now

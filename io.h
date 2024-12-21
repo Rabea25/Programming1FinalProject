@@ -51,7 +51,7 @@ vector<reservation> loadReservations(){
                 else tmp+=c;
             }
             r.phone = tmp;
-            resID = max(resID, stoi(r.id)+1);
+            resID = max(resID, stoll(r.id)+1);
             reservations.push_back(r);
         }
     }

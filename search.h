@@ -44,8 +44,9 @@ int searchRoomByCategory(string cat)
     if(cat == "G")cat = "GardenView";
     for(int i=0;i<rooms.size();i++)
     {
-        if(rooms[i].type == cat && rooms[i].type == "Available")return i;
+        if(rooms[i].type == cat && rooms[i].status == "Available")return i;
     }
+    cout<<setColor(red, black)<<" No available rooms in chosen category :( "<<resetColor()<<endl;
     return -1;
 }
 
@@ -82,9 +83,8 @@ void viewCustomerDetails()
             cin>>id;
             idx = searchReservationByID(id);
         }while(idx == -1);
-        cout<<"\nID\tRoom\tStatus\t\tDate\t\tNo of nights\tName\t\tNational ID\t\tE-mail\t\t\tPhone\n";
-        cout<<reservations[idx].id<<"\t"<<reservations[idx].room_no<<"\t"<<reservations[idx].confirm<<"\t"<<reservations[idx].check_in<<"\t";
-        cout<<reservations[idx].nights<<"\t\t"<<reservations[idx].name<<"\t"<<reservations[idx].nat_id<<"\t\t"<<reservations[idx].email<<"\t";
+        cout<<"\nName\t\tNational ID\t\tE-mail\t\t\t\tPhone\n";
+        cout<<reservations[idx].name<<"\t"<<reservations[idx].nat_id<<"\t\t"<<reservations[idx].email<<"\t\t";
         cout<<reservations[idx].phone<<"\n\n";
     } else{
         int idx;
@@ -94,12 +94,13 @@ void viewCustomerDetails()
             cin>>room_no;
             idx = searchReservationByRoomNumber(room_no);
         }while(idx == -1);
-        cout<<"\nID\tRoom\tStatus\t\tDate\t\tNo of nights\tName\t\tNational ID\t\tE-mail\t\t\tPhone\n";
-        cout<<reservations[idx].id<<"\t"<<reservations[idx].room_no<<"\t"<<reservations[idx].confirm<<"\t"<<reservations[idx].check_in<<"\t";
-        cout<<reservations[idx].nights<<"\t\t"<<reservations[idx].name<<"\t"<<reservations[idx].nat_id<<"\t\t"<<reservations[idx].email<<"\t";
+        cout<<"\nName\t\tNational ID\t\tE-mail\t\t\t\tPhone\n";
+        cout<<reservations[idx].name<<"\t"<<reservations[idx].nat_id<<"\t\t"<<reservations[idx].email<<"\t\t";
         cout<<reservations[idx].phone<<"\n\n";
     }
 }
+
+//------------------------------------------------------------- Query ---------------------------------------------------------------------
 
 void query()
 {
@@ -143,7 +144,7 @@ void query()
             idx = searchReservationByRoomNumber(room_no);
             cout<<"\nID\tRoom\tStatus\t\tDate\t\tNo of nights\tName\t\tNational ID\t\tE-mail\t\t\tPhone\n";
             cout<<reservations[idx].id<<"\t"<<reservations[idx].room_no<<"\t"<<reservations[idx].confirm<<"\t"<<reservations[idx].check_in<<"\t";
-            cout<<reservations[idx].nights<<"\t\t"<<reservations[idx].name<<"\t"<<reservations[idx].nat_id<<"\t\t"<<reservations[idx].email<<"\t";
+            cout<<reservations[idx].nights<<"\t\t"<<reservations[idx].name<<"\t"<<reservations[idx].nat_id<<"\t\t"<<reservations[idx].email<<"\t\t";
             cout<<reservations[idx].phone<<"\n\n";
         } else{
             cout<<"\nRoom\tStatus\t\tCategory\tPrice\n";
@@ -153,13 +154,30 @@ void query()
                 cout<<rooms[idx].room_no<<"\t"<<rooms[idx].status<<"\t"<<rooms[idx].type<<"\t"<<rooms[idx].price<<"\n\n";
         }
     } else{
-        cout<<"\nRoom\tStatus\t\tCategory\tPrice\n";
-        for(auto r:rooms){
-            if(r.type == "SeaView")
-                cout<<r.room_no<<"\t"<<r.status<<"\t"<<r.type<<"\t\t"<<r.price<<"\n\n";
-            else
-                cout<<r.room_no<<"\t"<<r.status<<"\t"<<r.type<<"\t"<<r.price<<"\n\n";
+        cout<<"[1] "<<"Show Available"<<endl;
+        cout<<"[2] "<<"Show Reserved"<<endl;
+        int option;
+        cin>>option;
 
+        if(option == 1){
+            cout<<"\nRoom\tStatus\t\tCategory\tPrice\n";
+            for(auto r:rooms){
+                if(r.status == "Available")
+                    if(r.type == "SeaView")
+                        cout<<r.room_no<<"\t"<<r.status<<"\t"<<r.type<<"\t\t"<<r.price<<"\n\n";
+                    else
+                       cout<<r.room_no<<"\t"<<r.status<<"\t"<<r.type<<"\t"<<r.price<<"\n\n";
+            }
+        } else {
+            cout<<"\nRoom\tStatus\t\tCategory\tPrice\n";
+            for(auto r:rooms){
+                if(r.status == "Reserved")
+                    if(r.type == "SeaView")
+                        cout<<r.room_no<<"\t"<<r.status<<"\t"<<r.type<<"\t\t"<<r.price<<"\n\n";
+                    else
+                        cout<<r.room_no<<"\t"<<r.status<<"\t"<<r.type<<"\t"<<r.price<<"\n\n";
+            }
         }
+
     }
 }

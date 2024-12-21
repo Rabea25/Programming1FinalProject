@@ -41,38 +41,36 @@ void reserveRoom()
     cout<<"Enter phone no: ";
     cin>>newReservation.phone;
 
-
-    //---------------temporary placeholders for testing until checkAvailibilty func is finished----------//
-    cout<<"Enter Check In date(DD-MM-YYYY): ";
+    cout<<"Enter Check In date(DD-MM-YYYY): "<<endl;
     cin>>newReservation.check_in;
 
-    cout<<"Enter no of nights: ";
+    cout<<"Enter no of nights: "<<endl;
     cin>>newReservation.nights;
-    
-    cout<<"Enter room no: ";
-    cin>>newReservation.room_no;
+
+    //---------------temporary placeholders for testing until checkAvailibilty func is finished----------//
+    // cout<<"Enter room no: ";
+    // cin>>newReservation.room_no;
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // do{
-    //     cout<<"Choose room type: "<<endl;
-    //     cout<<"[1] "<<"SeaView"<<endl;
-    //     cout<<"[2] "<<"LakeView"<<endl;
-    //     cout<<"[3] "<<"GardenView"<<endl;
-    //     int option;
-    //     cin>>option;
+    int option;
+    string cat;
+    do{
+        cout<<"Choose room type: "<<endl;
+        cout<<"[1] "<<"SeaView"<<endl;
+        cout<<"[2] "<<"LakeView"<<endl;
+        cout<<"[3] "<<"GardenView"<<endl;
+        cin>>option;
+        option==1?cat="S":option==2?cat="L":option==3?cat="G":cat="";
+    } while(searchRoomByCategory(cat) == -1);
     
-    //     cout<<"Enter Check In date(DD-MM-YYYY): "<<endl;
-    //     cin>>newReservation.check_in;
-
-    //     cout<<"Enter no of nights: "<<endl;
-    //     cin>>newReservation.nights;
-
-    // } while(checkAvailablity(option, newReservation.check_in, newReservation.nights) == -1);
-    //newReservation.room_no = checkAvailablity(option, newReservation.check_in, newReservation.nights);
+    newReservation.room_no = rooms[searchRoomByCategory(cat)].room_no;
+    rooms[searchRoomByCategory(cat)].status = "Reserved";
 
     newReservation.id = to_string(resID);
     newID();
+
     newReservation.confirm = "Unconfirmed";
+    
     cout<<endl<<setColor(white, green)<<" Reservation is successful, reservation id:  "<<newReservation.id<<resetColor()<<endl<<endl;
     reservations.push_back(newReservation);
     sortReservations();
