@@ -30,7 +30,7 @@ vector<user> loadUsers(){
 
 vector<reservation> loadReservations(){
     vector<reservation> reservations;
-    ifstream file("reservations.txt");
+    ifstream file("Reservation.txt");
     if(file.is_open()){
         string line;
         while(getline(file, line)){
