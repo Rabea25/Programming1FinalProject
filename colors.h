@@ -24,5 +24,5 @@ string setColor(int fg, int bg) {
 }
 
 string resetColor() {
-    return "\033[0m";
+    return setColor(brightWhite, black);
 }
