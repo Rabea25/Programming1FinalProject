@@ -89,7 +89,7 @@ vector<room> loadRooms(){
     return rooms;
 }
 
-void save(vector<reservation> reservations, vector<room> rooms){
+void save(){
     ofstream file("Reservation.txt");
     if(file.is_open()){
         for(reservation r:reservations){

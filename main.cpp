@@ -7,6 +7,7 @@
 #include "cancel.h"
 #include "reserve.h"
 #include "report.h"
+#include "CheckIN.h"
 using namespace std;
 
 bool loggedin = false;
@@ -26,7 +27,7 @@ void menu(){
             cout<<"Goodbye!"<<endl;
             exit(0);
         }
-        else cout<<setColor(white,yellow)<<endl<<"Invalid input."<<resetColor()<<endl<<endl;
+        else cout<<setColor(white,yellow)<<endl<<" Invalid input. "<<resetColor()<<endl<<endl;
     }
     cout<<setColor(brightWhite, black)<<"Welcome staff member, this is the main menu:"<<endl<<endl;
     while(loggedin){ 
@@ -45,10 +46,10 @@ void menu(){
         cin>>opt;
         switch(opt){
             case 1:
-                reserveRoom();
+                reserveRoom(); //i think is done
                 break;
             case 2:
-                //checkIn();
+                checkIN(); //all goodie 
                 break;
             case 3:
                 cancelReservation();
@@ -56,8 +57,14 @@ void menu(){
             case 4:
                 //checkOut();
                 break;
-            case 5:
-                //checkRoomAvailability();
+            case 5: //idk what this is supposed to do bsra7a
+                for(room r:rooms){
+                    if(r.status=="Available") cout<<r.room_no<<" "<<r.status<<" "<<r.type<<" "<<r.price<<endl;
+                }
+                cout<<endl;
+                for(room r:rooms){
+                    if(r.status!="Available") cout<<r.room_no<<" "<<r.status<<" "<<r.type<<" "<<r.price<<endl;
+                }
                 break;
             case 6:
                 viewCustomerDetails();
@@ -72,18 +79,18 @@ void menu(){
                 reservationReport();
                 break;
             case 10:
-                cout<<endl<<setColor(red, black)<<"--Logging Out--"<<resetColor()<<endl<<endl;
+                cout<<endl<<setColor(red, black)<<"---Logging Out---"<<resetColor()<<endl<<endl;
                 loggedin = 0;
-                save(reservations, rooms);
+                save();
                 break;
             case 11:
-                cout<<setColor(red, black)<<"--Logging Out--"<<resetColor()<<endl;
+                cout<<setColor(red, black)<<"---Logging Out---"<<resetColor()<<endl;
                 cout<<"Goodbye!"<<endl;
-                save(reservations, rooms);
+                save();
                 exit(0);
             default:
-                cout<<setColor(white,yellow)<<endl<<"Invalid input, options are numbered 1 through 11."<<resetColor()<<endl<<endl;
-        }
+                cout<<setColor(white,yellow)<<endl<<" Invalid input, options are numbered 1 through 11. "<<resetColor()<<endl;
+        }       cout<<endl;
     }
 }
 
@@ -92,6 +99,9 @@ int main(){
     users = loadUsers();
     reservations = loadReservations();
     rooms = loadRooms();
+    today = "01-01-2025"; //if you want to set a custom date comment getDate() and change this
+    getDate(); 
+    cout<<today<<endl;
     while(1){
         menu();
     }

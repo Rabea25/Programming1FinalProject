@@ -43,7 +43,7 @@ public:
         return regex_match(email, pattern);
     }
 
-    static bool PhoneNemberValidaion(string PhoneNumber)
+    static bool PhoneNumberValidaion(string PhoneNumber)
     {
         if (PhoneNumber.length() < 10 || PhoneNumber.length() > 15)
         {
@@ -51,7 +51,7 @@ public:
         }
 
         for (int i = 0; i < PhoneNumber.length(); i++) {
-            if (!isdigit(PhoneNumber[i])) {
+            if (!isdigit(PhoneNumber[i]) && PhoneNumber[i]!='+') {
 
                 return 0;
             }
@@ -59,7 +59,7 @@ public:
         return 1;
     }
     
-    static bool DatesValidations(string date)
+    static bool DatesValidations(string &date)
     {
         char Date[11]; //El 11 3shan el null fel a5er beta3 strcpy
         strcpy(Date, date.c_str());
@@ -89,9 +89,31 @@ public:
             return 0;
         }
 
+        string date2 = "";
+        if(day<10){date2+='0';date2+='0'+day;}
+        else date2+=to_string(day);
+        date2+="-";
+        if(month<10){date2+='0';date2+='0'+month;}
+        else date2+=to_string(month);
+        date2+="-";
+        date2+=to_string(year);
+
+        date = date2;
+
         return 1;
 
     }
+
+    static bool NightsValidation(string nights)
+    {
+        for (int i = 0; i < nights.length(); i++) {
+            if (!isdigit(nights[i])) {
+                return 0;
+            }
+        }
+        return stoi(nights) <= 30;
+    }
+
     
 
 };

@@ -3,7 +3,8 @@
 #include "structs.h"
 #include "colors.h"
 #include "search.h"
-
+#include "Validations.h"
+#pragma once
 using namespace std;
 
 void sortReservations()
@@ -21,32 +22,58 @@ void sortReservations()
             }
         }
     }
+    save();
 }
 
 void reserveRoom()
 {
     reservation newReservation;
-    cout<<endl<<"Adding a reservation"<<endl;
+    cout<<endl<<"Adding a reservation:"<<endl;
 
     cout<<"Enter Name: ";
     cin.ignore();
     getline(cin, newReservation.name);
+    while(!Validations::NameValidation(newReservation.name)){
+        cout<<setColor(white,yellow)<<" Invalid name format "<<resetColor()<<endl<<"Please enter a valid name: ";
+        getline(cin, newReservation.name);
+    }
 
     cout<<"Enter national ID: ";
     cin>>newReservation.nat_id;
+    while(!Validations::NationalIDValidation(newReservation.nat_id)){
+        cout<<setColor(white,yellow)<<" Invalid national ID "<<resetColor()<<endl<<"Please enter a valid national ID: ";
+        cin>>newReservation.nat_id;
+    }
+
 
     cout<<"Enter e-mail: ";
     cin>>newReservation.email;
+    while(!Validations::EmailValidation(newReservation.email)){
+        cout<<setColor(white,yellow)<<" Invalid email "<<resetColor()<<endl<<"Please enter a valid email: ";
+        cin>>newReservation.email;
+    }
 
     cout<<"Enter phone no: ";
     cin>>newReservation.phone;
+    while(!Validations::PhoneNumberValidaion(newReservation.phone)){
+        cout<<setColor(white,yellow)<<" Invalid phone number "<<resetColor()<<endl<<"Please enter a valid phone number: ";
+        cin>>newReservation.phone;
+    }
 
-    cout<<"Enter Check In date(DD-MM-YYYY): "<<endl;
+
+    cout<<"Enter Check In date(DD-MM-YYYY): ";
     cin>>newReservation.check_in;
+    while(!Validations::DatesValidations(newReservation.check_in)){
+        cout<<setColor(white,yellow)<<" Invalid date "<<resetColor()<<endl<<"Please enter date in the format DD-MM-YYYY: ";
+        cin>>newReservation.check_in;
+    }
 
-    cout<<"Enter no of nights: "<<endl;
+    cout<<"Enter no of nights: ";
     cin>>newReservation.nights;
-
+    while(!Validations::NightsValidation(newReservation.nights)){
+        cout<<setColor(white,yellow)<<" Invalid number "<<resetColor()<<endl<<"Please enter a valid number of nights (maximum is 30): ";
+        cin>>newReservation.nights;
+    }
     //---------------temporary placeholders for testing until checkAvailibilty func is finished----------//
     // cout<<"Enter room no: ";
     // cin>>newReservation.room_no;
@@ -54,22 +81,40 @@ void reserveRoom()
 
     int option;
     string cat;
-    do{
+    cout<<"Choose room type: "<<endl;
+    cout<<"[1] "<<"SeaView"<<endl;
+    cout<<"[2] "<<"LakeView"<<endl;
+    cout<<"[3] "<<"GardenView"<<endl;
+    cin>>option;
+    option==1?cat="S":option==2?cat="L":option==3?cat="G":cat="";
+    while(searchRoomByCategory(cat) == -1){
+        cout<<setColor(white,yellow)<<" No available rooms in chosen category "<<resetColor()<<endl;
         cout<<"Choose room type: "<<endl;
         cout<<"[1] "<<"SeaView"<<endl;
         cout<<"[2] "<<"LakeView"<<endl;
         cout<<"[3] "<<"GardenView"<<endl;
         cin>>option;
         option==1?cat="S":option==2?cat="L":option==3?cat="G":cat="";
-    } while(searchRoomByCategory(cat) == -1);
-    
-    newReservation.room_no = rooms[searchRoomByCategory(cat)].room_no;
-    rooms[searchRoomByCategory(cat)].status = "Reserved";
+    }
+    string xdddd = cat=="S"?"SeaView":cat=="L"?"LakeView":"GardenView";
+    showAvailableRoomsByCategory(xdddd);
+    cout<<"Choose room no: ";
+    string roomNumber; 
+    cin>>roomNumber;
+    while(searchRoomByNumber(roomNumber)==-1 || rooms[searchRoomByNumber(roomNumber)].type!=xdddd){
+        cout<<setColor(white,yellow)<<" Invalid room number or mismatching category "<<resetColor()<<endl;
+        cout<<"Choose room no: ";
+        cin>>roomNumber;
+    }
 
-    newReservation.id = to_string(resID);
+    newReservation.room_no = roomNumber;
+    rooms[searchRoomByNumber(roomNumber)].status = "Reserved";
+
     newID();
+    newReservation.id = to_string(resID);
+    
 
-    newReservation.confirm = "Unconfirmed";
+    newReservation.confirm = "unconfirmed";
     
     cout<<endl<<setColor(white, green)<<" Reservation is successful, reservation id:  "<<newReservation.id<<resetColor()<<endl<<endl;
     reservations.push_back(newReservation);

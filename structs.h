@@ -32,8 +32,26 @@ vector<reservation> reservations;
 vector<room> rooms;
 
 long long resID = 1;
+string today;
+
+void getDate(){
+    time_t t = std::time(nullptr);
+    tm* local = std::localtime(&t);
+    string year = to_string(local->tm_year + 1900);
+    string month = to_string(local->tm_mon + 1);
+    if(month.size()==1) month = "0"+month;
+    string day = to_string(local->tm_mday);
+    if(day.size()==1) day = "0"+day;
+    today = day + "-" + month + "-" + year;
+}
 
 void newID(){
-    //for now
-    resID++;
+    //resID++;
+    bool flag;
+    do{
+        flag = 0;
+        srand(time(0));
+        resID = rand();
+        for(reservation r : reservations) if(r.id == to_string(resID)) {flag = 1; break;}
+    }while(flag);
 }

@@ -3,28 +3,17 @@
 #include <sstream>
 #include <ctime>
 #include <vector>
+#include "structs.h"
+#include "colors.h"
 using namespace std;
 
-void CheckIN(string reservationID, string TodayDate)
+void checkIN()
 {
-    ifstream reservationFile("Reservation.txt");
-    ifstream roomFile("Room.txt");
 
-    vector<string> reservations;
-    vector<string> rooms;
-
-    string line;
-    while (getline(reservationFile, line))
-    {
-        reservations.push_back(line);
-    }
-    reservationFile.close();
-
-    while (getline(roomFile, line))
-    {
-        rooms.push_back(line);
-    }
-    roomFile.close();
+    //hat el reservation id
+    cout<<"Enter reservation id: ";
+    string reservationID;
+    cin>>reservationID;
 
     //3shan a5do mn el reservations.txt
     string roomNumber;
@@ -33,101 +22,54 @@ void CheckIN(string reservationID, string TodayDate)
     for (int i = 0; i < reservations.size(); i++)
     {
         //part reservation
-        stringstream x(reservations[i]);
-        string token;
-        vector<string> ResDetails;
-
-        while (getline(x, token, ','))
-        {
-            ResDetails.push_back(token);
-        }
-
-        if (ResDetails[0] == reservationID && ResDetails[6] == TodayDate)
+        if (reservations[i].id == reservationID && reservations[i].check_in == today)
         {
             flag = 1;
 
             // 3shan part el rooms:
-            roomNumber = ResDetails[1];
+            roomNumber = reservations[i].room_no;
 
-            if (ResDetails[2] == "unconfirmed")
+            if (reservations[i].confirm == "unconfirmed")
             {
-                ResDetails[2] = "confirmed";
-
-                reservations[i] = "";
-                for (int j = 0; j < ResDetails.size(); j++)
-                {
-                    reservations[i] += ResDetails[j];
-                    //El commas
-
-                    if (j < ResDetails.size() - 1)
-                        reservations[i] += ",";
-                }
+                reservations[i].confirm = "confirmed";
             }
-
+            else
+            {
+                cout<<endl<<setColor(white, red)<<" Customer has already checked-in. "<<resetColor()<<endl<<endl;
+                return;
+            }
             break;
         }
     }
 
-    if (flag)
+    if (!flag)
     {
-        ofstream reservationFile("Reservation.txt");
-        for (const string& res : reservations)
-        {
-            reservationFile << res << endl;
-        }
-        reservationFile.close();
-
+        cout<<endl<<setColor(white, yellow)<<" Invalid Check in date or reservation not found "<<resetColor()<<endl<<endl;
+        return; 
     }
-
 
     //Part room.txt
 
-    int flag2 = 0;
     for (int i = 0; i < rooms.size(); i++)
     {
         //part el room
-        stringstream x(rooms[i]);
-        string token;
-        vector<string> RoomsDetails;
-
-        while (getline(x, token, ' '))
+        if (rooms[i].room_no == roomNumber)
         {
-            RoomsDetails.push_back(token);
-        }
-        if (RoomsDetails[0] == roomNumber)
-        {
+            if (rooms[i].status == "Available")
+                rooms[i].status = "Reserved";
 
-            flag2 = 1;
-            if (RoomsDetails[1] == " Available")
-                RoomsDetails[1] = " Reserved";
-
-            rooms[i] = "";
-            for (int j = 0; j < RoomsDetails.size(); j++)
+            else if (rooms[i].status == "Reserved")
             {
-                rooms[i] += RoomsDetails[j];
-                //el spaces
-                if (j < RoomsDetails.size() - 1)
-                    rooms[i] += " ";
+                cout<<endl<<setColor(white, red)<<" Room is already reserved. "<<resetColor()<<endl<<endl;
+                return;
             }
+            cout<<rooms[i].status<<endl;
             break;
         }
 
 
     }
-
-    if (flag2)
-    {
-        ofstream roomsFile("Rooms.txt");
-        for (const string& room : rooms)
-        {
-            roomsFile << room << endl;
-        }
-        roomsFile.close();
-        cout << "Check in Successful.\n";
-    }
-    else
-    {
-        cout << "Invalid Check in date or reservation not found\n";
-    }
+    save();
+    cout<<endl<<setColor(white, green)<<" Customer has checked-in successfully. "<<resetColor()<<endl<<endl;
 
 }

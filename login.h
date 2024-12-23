@@ -31,7 +31,7 @@ bool login(vector<user> users){
     for(user i:users) {if(i.pw == pw && i.username == username) valid = 1;}
     if(valid){
         cout<<endl;
-        cout<<setColor(brightGreen, black)<<"--Logging In!--"<<resetColor()<<endl;
+        cout<<setColor(brightGreen, black)<<"---Logging In!---"<<resetColor()<<endl;
         cout<<setColor(brightGreen, grey)<<"Login successful!"<<resetColor()<<endl<<endl;
         return 1;
     }

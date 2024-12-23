@@ -6,6 +6,14 @@
 
 using namespace std;
 
+void showAvailableRoomsByCategory(string cat){
+    cout<<"room_numer\tprice\n";
+    for(room r:rooms) if(r.type==cat && r.status!="Reserved") cout<<r.room_no<<'\t'<<r.price<<endl; 
+}
+
+
+
+
 // ------------------------------------------------------------------- RESEVATION SEARCHES -------------------------------------------
 
 int searchReservationByID(string ID) // returns the index of the reservation 
@@ -46,7 +54,6 @@ int searchRoomByCategory(string cat)
     {
         if(rooms[i].type == cat && rooms[i].status == "Available")return i;
     }
-    cout<<setColor(red, black)<<" No available rooms in chosen category :( "<<resetColor()<<endl;
     return -1;
 }
 

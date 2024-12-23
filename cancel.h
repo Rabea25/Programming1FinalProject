@@ -12,13 +12,14 @@ void CANCEL(int idx)// takes index in the reservations vector
     room_idx = searchRoomByNumber(toBeCanceled.room_no);
     if(rooms[room_idx].status == "Confirmed")
     {
-        cout<<"Sorry you can't cancel a confirmed room"<<endl;
+        cout<<setColor(white, red)<<" Sorry you can't cancel a confirmed room "<<resetColor()<<endl;
         return;
     }
     reservations.erase(reservations.begin() + idx);
     rooms[room_idx].status = "Available";
 
     cout<<endl<<setColor(white, green)<<" Successfully cancelled the reservation. "<<resetColor()<<endl<<endl;
+    sortReservations(); //sort and then calls save()
     return;
 }
 
@@ -48,7 +49,7 @@ int cancelReservation()
             cout<<"Reservation ID: ";
             cin>>reservation_ID;
             temp = searchReservationByID(reservation_ID);
-            if(temp == -1)cout<<"Sorry this ID doesn't exist, please try again"<<endl;
+            if(temp == -1)cout<<setColor(white, yellow)<<" Sorry this ID doesn't exist, please try again "<<resetColor()<<endl;
 
         }while(temp == -1);
 
@@ -63,7 +64,7 @@ int cancelReservation()
             cout<<"Room Number: ";
             cin>>room_no;
             temp = searchReservationByRoomNumber(room_no);
-            if(temp == -1) cout<<"Sorry this room doesn't exist, please try again"<<endl;
+            if(temp == -1) cout<<setColor(white, yellow)<<" Sorry this room doesn't exist, please try again "<<resetColor()<<endl;
             
         }while(temp == -1);
 

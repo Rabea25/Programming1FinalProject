@@ -6,30 +6,31 @@
 #include "structs.h"
 #include "colors.h"
 #include "search.h"
-
+#include "reserve.h"
 using namespace std;
 
 void editReservations(int idx) // takes index in the reservations vector
 {
+    reservation tempReservation;
     // name, mobile, email address, reservation date, room category or number of nights only
     string s;
     cout<<"Editing ...\n(press enter to skip)"<<endl;
     fflush(stdin);
     cout<<"Name: ";
     getline(cin,s);
-    reservations[idx].name = (s==""? reservations[idx].name : s );
+    tempReservation.name = (s==""? reservations[idx].name : s );
 
     cout<<"Phone: ";
     getline(cin,s);
-    reservations[idx].phone = (s==""? reservations[idx].phone: s );
+    tempReservation.phone = (s==""? reservations[idx].phone: s );
 
     cout<<"Email: ";
     getline(cin,s);
-    reservations[idx].email = (s==""? reservations[idx].email : s );
+    tempReservation.email = (s==""? reservations[idx].email : s );
 
     cout<<"Check-in date: ";
     getline(cin,s);
-    reservations[idx].check_in = (s==""? reservations[idx].check_in : s );
+    tempReservation.check_in = (s==""? reservations[idx].check_in : s );
 
     cout<<"Room category (S:SeaView, G:GardenView, L:LakeView): ";
     getline(cin,s);
@@ -46,7 +47,7 @@ void editReservations(int idx) // takes index in the reservations vector
         else 
         {
             //UpdateRoomStatus( searchRoomByNumber( reservations[idx].room_no ) );----------------------------------------------------------------------------------------
-            reservations[idx].room_no = rooms[room_id].room_no;
+            tempReservation.room_no = rooms[room_id].room_no;
             rooms[room_id].status = "Reserved";
             cout<<"Your new room is room "<<rooms[room_id].room_no<<endl;
         }
@@ -54,7 +55,9 @@ void editReservations(int idx) // takes index in the reservations vector
 
     cout<<"Number of nights: ";
     getline(cin,s);
-    reservations[idx].nights = (s==""? reservations[idx].nights : s );
+    tempReservation.nights = (s==""? reservations[idx].nights : s );
+
+    sortReservations(); //incase checkin date is changed, and then it saves
 }
 
 int editReservationDetails()
