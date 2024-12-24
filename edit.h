@@ -46,7 +46,8 @@ void EDIT(int idx) // takes index in the reservations vector
         if(room_id == -1)cout<<"Sorry there aren't any available rooms of the chosen category"<<endl;
         else 
         {
-            //UpdateRoomStatus( searchRoomByNumber( reservations[idx].room_no ) );----------------------------------------------------------waiting to be done------------------------------
+            //UpdateRoomStatus( searchRoomByNumber( reservations[idx].room_no ) );----------------------------------------------------------5las not needed------------------------------
+            rooms[ searchRoomByNumber(reservations[idx].room_no)  ].status = "Available";
             tempReservation.room_no = rooms[room_id].room_no;
             rooms[room_id].status = "Reserved";
             cout<<"Your new room is room "<<rooms[room_id].room_no<<endl;
@@ -56,6 +57,7 @@ void EDIT(int idx) // takes index in the reservations vector
     cout<<"Number of nights: ";
     getline(cin,s);
     tempReservation.nights = (s==""? reservations[idx].nights : s );
+
     reservations[idx] = tempReservation;
     sortReservations(); //incase checkin date is changed, and then it saves
     cout<<setColor(white, green)<<" Reservation edited successfully "<<resetColor()<<endl<<endl;
