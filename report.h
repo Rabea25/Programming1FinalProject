@@ -8,6 +8,19 @@
 using namespace std;
 
 void reservationReport(){
+	
+	cout<<endl<<"Reservation Report:"<<endl;
+    cout<<"[0] "<<setColor(red, black)<<"Back"<<resetColor()<<endl;
+    cout<<"[1] Continue"<<endl;
+    string O;
+    cin>>O;
+    while( !( O == "0" || O == "1" ) )
+    {
+        cout<<"Please enter a valid option"<<endl;
+        cin>>O;
+    }
+    if(O == "0")return;
+
 	cout<<"Enter the date for the report (dd-mm-yyyy): ";
 	string date;
 	cin>>date;
@@ -21,7 +34,7 @@ void reservationReport(){
 	vector<reservation> report;
 
 	for(reservation i:reservations){
-		if(i.check_in == date) report.push_back(i);
+		if(i.check_in == date && i.confirm == "confirmed") report.push_back(i);
 	}
 
 	if(!report.size()){
