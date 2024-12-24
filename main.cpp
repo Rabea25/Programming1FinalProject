@@ -11,6 +11,9 @@
 using namespace std;
 
 bool loggedin = false;
+string wackadoodle;
+
+
 
 void menu(){
     int opt;
@@ -65,6 +68,9 @@ void menu(){
                 for(room r:rooms){
                     if(r.status!="Available") cout<<r.room_no<<" "<<r.status<<" "<<r.type<<" "<<r.price<<endl;
                 }
+                fflush(stdin);
+                getline(cin,wackadoodle);
+
                 break;
             case 6:
                 viewCustomerDetails();
