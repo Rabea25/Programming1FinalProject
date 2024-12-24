@@ -30,6 +30,17 @@ void reserveRoom()
     reservation newReservation;
     cout<<endl<<"Adding a reservation:"<<endl;
 
+    cout<<"[0] "<<setColor(red, black)<<"Back"<<resetColor()<<endl;
+    cout<<"[1] Continue"<<endl;
+    string O;
+    cin>>O;
+    while( !( O == "0" || O == "1" ) )
+    {
+        cout<<"Please enter a valid option"<<endl;
+        cin>>O;
+    }
+    if(O == "0")return;
+
     cout<<"Enter Name: ";
     cin.ignore();
     getline(cin, newReservation.name);

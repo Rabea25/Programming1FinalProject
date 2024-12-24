@@ -25,7 +25,7 @@ void CANCEL(int idx)// takes index in the reservations vector
 
 int cancelReservation()
 {
-    cout<<"Canceling an existing reservation"<<endl;
+    cout<<endl<<"Canceling an existing reservation"<<endl;
     cout<<"Please select an option:"<<endl;
     cout<<"[0] "<<setColor(red, black)<<"Back"<<resetColor()<<endl;
     cout<<"[1] Reservation ID"<<endl;

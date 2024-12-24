@@ -70,18 +70,22 @@ int searchRoomByNumber(string num)
 
 void viewCustomerDetails()
 {
+    cout<<endl<<"Viewing customer details"<<endl;
+
     int option;
     bool flag = false;
     while(!flag){
         cout<<"Search by: "<<endl;
+        cout<<"[0] "<<setColor(red, black)<<"Back"<<resetColor()<<endl;
         cout<<"[1] "<<"ID"<<endl;
         cout<<"[2] "<<"Room No"<<endl;
         cin>>option;
-        if(option != 1 && option != 2)
+        if(option != 0 && option != 1 && option != 2)
             cout<<"Invalid option."<<endl;
         else
             flag=true;
     }
+    if(option == 0)return;
     if(option == 1){
         int idx;
         do{
@@ -111,19 +115,23 @@ void viewCustomerDetails()
 
 void query()
 {
+    cout<<endl<<"Searching details"<<endl;
+
     int option;
     bool flag = false;
     while(!flag){
         cout<<"Search by: "<<endl;
+        cout<<"[0] "<<setColor(red, black)<<"Back"<<resetColor()<<endl;
         cout<<"[1] "<<"Name"<<endl;
         cout<<"[2] "<<"Room No"<<endl;
         cout<<"[3] "<<"Room Status"<<endl;
         cin>>option;
-        if(option != 1 && option != 2 && option != 3)
+        if(option !=0 && option != 1 && option != 2 && option != 3)
             cout<<"Invalid option."<<endl;
         else
             flag=true;
     }
+    if(option == 0)return;
     if(option == 1){
         int idx;
         cout<<"Enter Name: ";

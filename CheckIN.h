@@ -9,6 +9,18 @@ using namespace std;
 
 void checkIN()
 {
+    cout<<endl<<"Checking in:"<<endl;
+    cout<<"[0] "<<setColor(red, black)<<"Back"<<resetColor()<<endl;
+    cout<<"[1] Continue"<<endl;
+    string O;
+    cin>>O;
+    while( !( O == "0" || O == "1" ) )
+    {
+        cout<<"Please enter a valid option"<<endl;
+        cin>>O;
+    }
+    if(O == "0")return;
+
 
     //hat el reservation id
     cout<<"Enter reservation id: ";
