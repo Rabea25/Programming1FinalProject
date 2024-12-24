@@ -35,8 +35,8 @@ long long resID = 1;
 string today;
 
 void getDate(){
-    time_t t = std::time(nullptr);
-    tm* local = std::localtime(&t);
+    time_t t = time(nullptr);
+    tm* local = localtime(&t);
     string year = to_string(local->tm_year + 1900);
     string month = to_string(local->tm_mon + 1);
     if(month.size()==1) month = "0"+month;
