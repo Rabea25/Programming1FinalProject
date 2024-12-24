@@ -7,7 +7,7 @@
 using namespace std;
 
 void showAvailableRoomsByCategory(string cat){
-    cout<<"room_numer\tprice\n";
+    cout<<"room_number\tprice\n";
     for(room r:rooms) if(r.type==cat && r.status!="Reserved") cout<<r.room_no<<'\t'<<r.price<<endl; 
 }
 
