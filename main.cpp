@@ -101,7 +101,7 @@ int main(){
     rooms = loadRooms();
     today = "01-01-2025"; //if you want to set a custom date comment getDate() and change this
     getDate(); 
-    cout<<today<<endl;
+    //cout<<today<<endl;
     while(1){
         menu();
     }
