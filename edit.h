@@ -11,7 +11,7 @@ using namespace std;
 
 void EDIT(int idx) // takes index in the reservations vector
 {
-    reservation tempReservation;
+    reservation tempReservation = reservations[idx];
     // name, mobile, email address, reservation date, room category or number of nights only
     string s;
     cout<<"Editing ...\n(press enter to skip)"<<endl;
@@ -59,8 +59,9 @@ void EDIT(int idx) // takes index in the reservations vector
     tempReservation.nights = (s==""? reservations[idx].nights : s );
 
     reservations[idx] = tempReservation;
-    sortReservations(); //incase checkin date is changed, and then it saves
-    cout<<setColor(white, green)<<" Reservation edited successfully "<<resetColor()<<endl<<endl;
+    bool x = sortReservations(); //incase checkin date is changed, and then it saves
+    if(x)cout<<setColor(white, green)<<" Reservation edited successfully "<<resetColor()<<endl<<endl;
+    else cout<<setColor(white, red)<<" Reservation edited has been canceled "<<resetColor()<<endl<<endl;
 }
 
 int editReservationDetails()
