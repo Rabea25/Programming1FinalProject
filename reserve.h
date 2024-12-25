@@ -7,7 +7,7 @@
 #pragma once
 using namespace std;
 
-void sortReservations()
+bool sortReservations()
 {
     vector<int> idx = {6, 7, 8, 9, 3, 4, 0, 1};
     for(int i=0;i<reservations.size()-1;i++){
@@ -22,7 +22,7 @@ void sortReservations()
             }
         }
     }
-    save();
+    return save();
 }
 
 void reserveRoom()

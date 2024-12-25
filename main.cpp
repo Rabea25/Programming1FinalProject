@@ -104,7 +104,9 @@ int main(){
     cout<<resetColor();
     users = loadUsers();
     reservations = loadReservations();
+    reservationsOG = reservations;
     rooms = loadRooms();
+    roomsOG = rooms;
     today = "01-01-2025"; //if you want to set a custom date comment getDate() and change this
     getDate(); 
     //cout<<today<<endl;

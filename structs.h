@@ -28,8 +28,8 @@ struct room{
 
 
 vector<user> users;
-vector<reservation> reservations;
-vector<room> rooms;
+vector<reservation> reservations,reservationsOG;
+vector<room> rooms,roomsOG;
 
 long long resID = 1;
 string today;

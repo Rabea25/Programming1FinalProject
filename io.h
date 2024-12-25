@@ -89,7 +89,26 @@ vector<room> loadRooms(){
     return rooms;
 }
 
-void save(){
+bool save(){
+
+    cout<<endl<<"Save Changes?"<<endl;
+    cout<<"[1]"<<setColor(green,black)<<"Save"<<resetColor()<<endl;
+    cout<<"[2]"<<setColor(red,black)<<"Cancel"<<resetColor()<<endl;
+    int option;
+    cin>>option;
+    while(option != 1 && option != 2)
+    {
+        cout<<"Please enter a valid input"<<endl;
+        cin>>option;
+    }
+    if(option == 2)
+    {
+        reservations = reservationsOG;
+        roomsOG = rooms;
+        return 0;
+    }
+
+
     ofstream file("Reservation.txt");
     if(file.is_open()){
         for(reservation r:reservations){
@@ -106,4 +125,14 @@ void save(){
         }
     }
     else cout<<setColor(white, red)<<"Error opening rooms.txt file."<<resetColor()<<endl;
+
+    reservationsOG = reservations;
+    roomsOG = rooms;
+    return 1;
 }
+
+//void cancelSave() 7atetha fel save function w 5las
+//{
+//    reservations = reservationsOG;
+//    roomsOG = rooms;
+//}
