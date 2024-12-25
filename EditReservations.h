@@ -4,6 +4,7 @@
 #include <ctime>
 #include <vector>
 #include <string>
+#include "reserve.h"
 #include "Validations.h""
 #include "structs.h"
 
