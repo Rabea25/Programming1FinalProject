@@ -3,32 +3,24 @@
 #include <sstream>
 #include <ctime>
 #include <vector>
+#include <string>
+#include "structs.h"
+#include "reserve.h"
 using namespace std;
 
-void CheckOut(string reservationID, string TodayDate)
+void CheckOut()
 {
-    ifstream reservationFile("Reservation.txt");
-    ifstream roomFile("Room.txt");
 
-    vector<string> reservations;
-    vector<string> rooms;
+    cout <<"Checking out:" << endl;
+    cout << "Please enter you reservation ID" << endl;
+    string reservationID;
+    cin >> reservationID;
 
-    string line;
-    while (getline(reservationFile, line))
-    {
-        reservations.push_back(line);
-    }
-    reservationFile.close();
+    cout << "Please enter today's date" << endl;
+    string TodayDate;
+    cin >> TodayDate;
 
-    while (getline(roomFile, line))
-    {
-        rooms.push_back(line);
-    }
-    roomFile.close();
-
-    //3shan a5do mn el reservations.txt
     string roomNumber;
-    //Elli ha7tago 3shan adfa3 el bill
     string CheckINDate;
     int PricePerNight = 0;
     int NoOfNights = 0;
@@ -37,81 +29,43 @@ void CheckOut(string reservationID, string TodayDate)
     int flag = 0;
     for (int i = 0; i < reservations.size(); i++)
     {
-        //part el reservation
-        stringstream x(reservations[i]);
-        string token;
-        vector<string> ResDetails;
-
-        while (getline(x, token, ','))
-        {
-            ResDetails.push_back(token);
-        }
-
-        if (ResDetails[0] == reservationID && ResDetails[2] == "confirmed")
+        //part reservation
+        if (reservations[i].id == reservationID && reservations[i].confirm == "confirmed")
         {
             flag = 1;
-            // 3shan part el rooms:
-            roomNumber = ResDetails[1];
-            CheckINDate = ResDetails[6];
+            roomNumber = reservations[i].room_no;
+            CheckINDate = reservations[i].check_in;
 
             //Hamsa7 el details beta3et el reservation "BYEEE"
             reservations.erase(reservations.begin() + i);
-
             break;
 
         }
-
     }
-    if (flag)
+    
+    if (!flag)
     {
-        ofstream reservationFile("Reservation.txt");
-        for (const string& res : reservations)
-        {
-            reservationFile << res << endl;
-        }
-        reservationFile.close();
+        cout << "Invalid Reservation ID\n";
+        return;
     }
 
     //Part room.txt
 
-    int flag2 = 0;
     for (int i = 0; i < rooms.size(); i++)
     {
-        //part el room
-        stringstream x(rooms[i]);
-        string token;
-        vector<string> RoomsDetails;
-
-        while (getline(x, token, ' '))
+        
+        if (rooms[i].room_no == roomNumber)
         {
-            RoomsDetails.push_back(token);
-        }
+            if (rooms[i].status == "Reserved")
+                rooms[i].status = "Available";
 
-        if (RoomsDetails[0] == roomNumber)
-        {
-            flag2 = 1;
-
-            if (RoomsDetails[1] == "Reserved")
-                RoomsDetails[1] = "Available";
-
-            PricePerNight = stoi(RoomsDetails[3]);
-
-            rooms[i] = "";
-            for (int j = 0; j < RoomsDetails.size(); j++)
-            {
-                rooms[i] += RoomsDetails[j];
-                //el spaces
-                if (j < RoomsDetails.size() - 1)
-                    rooms[i] += " ";
-            }
+            PricePerNight = stoi(rooms[i].price);
             break;
 
         }
 
-
     }
-    if (flag2)
-    {
+
         //Calculating el bill '_'
         tm checkIn = {};
         stringstream CID(CheckINDate);
@@ -149,21 +103,8 @@ void CheckOut(string reservationID, string TodayDate)
         Bill = NoOfNights * PricePerNight;
 
         cout << "The required bill is: " << Bill << endl;
-
-
-        //el editing 
-        ofstream roomsFile("Rooms.txt");
-        for (const string& room : rooms)
-        {
-            roomsFile << room << endl;
-        }
-        roomsFile.close();
-        cout << "Check out Successful.\n";
-    }
-    else
-    {
-        cout << "Invalid Check out\n";
-    }
-
+        cout << "Checked out succesfully\n";
+        sortReservations();
 
 }
+
