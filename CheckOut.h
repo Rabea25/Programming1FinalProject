@@ -103,8 +103,9 @@ void CheckOut()
         Bill = NoOfNights * PricePerNight;
 
         cout << "The required bill is: " << Bill << endl;
-        cout << "Checked out succesfully\n";
-        sortReservations();
-
+        
+        bool x = sortReservations();
+        if(x)cout<<endl<<setColor(white, green)<<" Checked out succesfully. "<<resetColor()<<endl<<endl;
+        else cout<<endl<<setColor(white, red)<<" Check-out has been cancelled. "<<resetColor()<<endl<<endl;
 }
 
