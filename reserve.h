@@ -127,9 +127,11 @@ void reserveRoom()
 
     newReservation.confirm = "unconfirmed";
     
-    cout<<endl<<setColor(white, green)<<" Reservation is successful, reservation id:  "<<newReservation.id<<resetColor()<<endl<<endl;
+    
     reservations.push_back(newReservation);
-    sortReservations();
+    bool x = sortReservations();
+    if(x)cout<<endl<<setColor(white, green)<<" Reservation is successful, reservation id:  "<<newReservation.id<<resetColor()<<endl<<endl;
+    else cout<<endl<<setColor(white, red)<<" Reservation has been canceled"<<resetColor()<<endl<<endl;
 }
 
 /*void reservationReport()

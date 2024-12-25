@@ -81,7 +81,8 @@ void checkIN()
 
 
     }
-    save();
-    cout<<endl<<setColor(white, green)<<" Customer has checked-in successfully. "<<resetColor()<<endl<<endl;
+    bool x = save();
+    if(x)cout<<endl<<setColor(white, green)<<" Customer has checked-in successfully. "<<resetColor()<<endl<<endl;
+    else cout<<endl<<setColor(white, red)<<" Customer check-in has been canceled. "<<resetColor()<<endl<<endl;
 
 }
