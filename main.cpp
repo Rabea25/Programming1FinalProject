@@ -3,7 +3,7 @@
 #include "login.h"
 #include "colors.h"
 #include "io.h"
-#include "edit.h"
+#include "EditReservations.h"
 #include "cancel.h"
 #include "reserve.h"
 #include "report.h"
