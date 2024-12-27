@@ -12,13 +12,23 @@ void CheckOut()
 {
 
     cout <<"Checking out:" << endl;
+    cout<<"[0] "<<setColor(red, black)<<"Back"<<resetColor()<<endl;
+    cout<<"[1] Continue"<<endl;
+    string O;
+    cin>>O;
+    while( !( O == "0" || O == "1" ) )
+    {
+        cout<<setColor(white, yellow)<<" Please enter a valid option "<<resetColor()<<endl;
+        cin>>O;
+    }
+    if(O == "0")return;
     cout << "Please enter you reservation ID" << endl;
     string reservationID;
     cin >> reservationID;
 
-    cout << "Please enter today's date" << endl;
-    string TodayDate;
-    cin >> TodayDate;
+    //cout << "Please enter today's date" << endl;
+    string TodayDate = today;
+    //cin >> TodayDate;
 
     string roomNumber;
     string CheckINDate;
@@ -39,13 +49,17 @@ void CheckOut()
             //Hamsa7 el details beta3et el reservation "BYEEE"
             reservations.erase(reservations.begin() + i);
             break;
-
         }
+        if (reservations[i].id == reservationID && reservations[i].confirm == "unconfirmed") flag=-1;
     }
     
     if (!flag)
     {
-        cout << "Invalid Reservation ID\n";
+        cout <<setColor(white, yellow)<< "Invalid Reservation ID "<<resetColor()<<endl;
+        return;
+    }
+    if (flag == -1){
+        cout <<setColor(white, red)<< " Customer hasn't checked in yet "<<resetColor()<<endl;
         return;
     }
 
@@ -99,7 +113,7 @@ void CheckOut()
 
         double seconds = difftime(todayTime, checkInTime);
 
-        NoOfNights = seconds / (60 * 60 * 24);
+        NoOfNights = max(seconds / (60 * 60 * 24), 1.0);
         Bill = NoOfNights * PricePerNight;
 
         cout << "The required bill is: " << Bill << endl;

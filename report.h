@@ -24,7 +24,15 @@ void reservationReport(){
 	cout<<"Enter the date for the report (dd-mm-yyyy): ";
 	string date;
 	cin>>date;
-
+	int attempts=3;
+    while(!Validations::DatesValidations(date) && attempts--){
+        cout<<setColor(white,yellow)<<" Invalid date "<<resetColor()<<endl<<"Please enter date in the format DD-MM-YYYY: ";
+        cin>>date;
+    }
+    if(!attempts){
+        cout<<setColor(white, red)<<" Too many invalid attempts, going back to menu "<<resetColor()<<endl;
+        return;
+    }
 	//if(!validateDate(date)){
 	//cout<<endl<<setColor(white, yellow)<<"Invalid Date or incorrect format"<<resetColor()<<endl<<endl;
 	//	return;

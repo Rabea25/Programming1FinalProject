@@ -6,10 +6,7 @@
 
 using namespace std;
 
-void showAvailableRoomsByCategory(string cat){
-    cout<<"room_number\tprice\n";
-    for(room r:rooms) if(r.type==cat && r.status!="Reserved") cout<<r.room_no<<'\t'<<r.price<<endl; 
-}
+
 
 
 
@@ -43,6 +40,11 @@ int searchReservationByName(string name) // returns the index of the reservation
     return -1;
 }
 
+void showAvailableRoomsByCategory(string cat){
+    cout<<"room_number\tprice\n";
+    for(room r:rooms) if(r.type==cat && r.status!="Reserved" && searchReservationByRoomNumber(r.room_no)==-1) cout<<r.room_no<<'\t'<<r.price<<endl; 
+}
+
 //------------------------------------------------------------- ROOM SEARCHES ---------------------------------------------------------------------
 
 int searchRoomByCategory(string cat)
@@ -52,7 +54,7 @@ int searchRoomByCategory(string cat)
     if(cat == "G")cat = "GardenView";
     for(int i=0;i<rooms.size();i++)
     {
-        if(rooms[i].type == cat && rooms[i].status == "Available")return i;
+        if(rooms[i].type == cat && rooms[i].status == "Available" && searchReservationByRoomNumber(rooms[i].room_no)==-1)return i;
     }
     return -1;
 }
@@ -77,8 +79,8 @@ void viewCustomerDetails()
     while(!flag){
         cout<<"Search by: "<<endl;
         cout<<"[0] "<<setColor(red, black)<<"Back"<<resetColor()<<endl;
-        cout<<"[1] "<<"ID"<<endl;
-        cout<<"[2] "<<"Room No"<<endl;
+        cout<<"[1] "<<"Reservation ID"<<endl;
+        cout<<"[2] "<<"Room number"<<endl;
         cin>>option;
         if(option != 0 && option != 1 && option != 2)
             cout<<"Invalid option."<<endl;
@@ -88,25 +90,41 @@ void viewCustomerDetails()
     if(option == 0)return;
     if(option == 1){
         int idx;
-        do{
-            cout<<"Enter ID: ";
-            string id;
+        cout<<"Enter ID: ";
+        string id;
+        cin>>id;
+        idx = searchReservationByID(id);
+        int attempts = 3;
+        while(idx == -1 && --attempts){
+            cout<<setColor(white, yellow)<<" Please enter a valid ID: "<<resetColor()<<endl;
             cin>>id;
             idx = searchReservationByID(id);
-        }while(idx == -1);
+        }
+        if(!attempts){
+            cout<<setColor(white, red)<<" Too many invalid attempts, going back to menu "<<resetColor()<<endl;
+            return;
+        }
         cout<<"\nName\t\tNational ID\t\tE-mail\t\t\t\tPhone\n";
-        cout<<reservations[idx].name<<"\t"<<reservations[idx].nat_id<<"\t\t"<<reservations[idx].email<<"\t\t";
+        cout<<reservations[idx].name<<"\t\t"<<reservations[idx].nat_id<<"\t\t"<<reservations[idx].email<<"\t\t";
         cout<<reservations[idx].phone<<"\n\n";
     } else{
         int idx;
-        do{
-            cout<<"Enter Room No: ";
-            string room_no;
+        cout<<"Enter Room No: ";
+        string room_no;
+        cin>>room_no;
+        idx = searchReservationByRoomNumber(room_no);
+        int attempts = 3;
+        while(idx == -1 && --attempts){
+            cout<<setColor(white, yellow)<<" Please enter a valid room number: "<<resetColor()<<endl;
             cin>>room_no;
             idx = searchReservationByRoomNumber(room_no);
-        }while(idx == -1);
+        }
+        if(!attempts){
+            cout<<setColor(white, red)<<" Too many invalid attempts, going back to menu "<<resetColor()<<endl;
+            return;
+        }
         cout<<"\nName\t\tNational ID\t\tE-mail\t\t\t\tPhone\n";
-        cout<<reservations[idx].name<<"\t"<<reservations[idx].nat_id<<"\t\t"<<reservations[idx].email<<"\t\t";
+        cout<<reservations[idx].name<<"\t\t"<<reservations[idx].nat_id<<"\t\t"<<reservations[idx].email<<"\t\t";
         cout<<reservations[idx].phone<<"\n\n";
     }
 }
@@ -140,7 +158,7 @@ void query()
         getline(cin, name);
         idx = searchReservationByName(name);
         if(idx == -1)
-            cout<<"\nNo reservations under this name :(\n\n";
+            cout<<endl<<setColor(white, red)<<" No reservations under this name "<<resetColor()<<endl;
         else{
             cout<<"\nID\tRoom\tStatus\t\tDate\t\tNo of nights\tName\t\tNational ID\t\tE-mail\t\t\tPhone\n";
             cout<<reservations[idx].id<<"\t"<<reservations[idx].room_no<<"\t"<<reservations[idx].confirm<<"\t"<<reservations[idx].check_in<<"\t";
@@ -150,16 +168,24 @@ void query()
     } else if(option == 2){
         int idx;
         string room_no;
-        do{
-            cout<<"Enter Room No: ";
+        cout<<"Enter Room No: ";
+        cin>>room_no;
+        idx = searchRoomByNumber(room_no);
+        int attempts = 3;
+        while(idx==-1 && --attempts){
+            cout<<setColor(white, yellow)<<" Invalid room number, please try again "<<resetColor()<<endl;
             cin>>room_no;
             idx = searchRoomByNumber(room_no);
-        }while(idx == -1);
+        }
+        if(!attempts){
+            cout<<setColor(white, red)<<" Too many invalid attempts, going back to menu "<<resetColor()<<endl;
+            return;
+        }
         if(rooms[idx].status == "Reserved"){
             idx = searchReservationByRoomNumber(room_no);
             cout<<"\nID\tRoom\tStatus\t\tDate\t\tNo of nights\tName\t\tNational ID\t\tE-mail\t\t\tPhone\n";
             cout<<reservations[idx].id<<"\t"<<reservations[idx].room_no<<"\t"<<reservations[idx].confirm<<"\t"<<reservations[idx].check_in<<"\t";
-            cout<<reservations[idx].nights<<"\t\t"<<reservations[idx].name<<"\t"<<reservations[idx].nat_id<<"\t\t"<<reservations[idx].email<<"\t\t";
+            cout<<reservations[idx].nights<<"\t\t"<<reservations[idx].name<<"\t"<<reservations[idx].nat_id<<"\t\t"<<reservations[idx].email<<"\t";
             cout<<reservations[idx].phone<<"\n\n";
         } else{
             cout<<"\nRoom\tStatus\t\tCategory\tPrice\n";

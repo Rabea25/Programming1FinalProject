@@ -16,7 +16,7 @@ void checkIN()
     cin>>O;
     while( !( O == "0" || O == "1" ) )
     {
-        cout<<"Please enter a valid option"<<endl;
+        cout<<setColor(white, yellow)<<" Please enter a valid option "<<resetColor()<<endl;
         cin>>O;
     }
     if(O == "0")return;

@@ -22,7 +22,7 @@ vector<user> loadUsers(){
             users.push_back(u);
         }
     }
-    else cout<<setColor(white, red)<<"Error opening users.txt file."<<resetColor()<<endl;
+    else cout<<setColor(white, red)<<" Error opening users.txt file. "<<resetColor()<<endl;
     file.close();
 
     return users;
@@ -92,8 +92,8 @@ vector<room> loadRooms(){
 bool save(){
 
     cout<<endl<<"Save Changes?"<<endl;
-    cout<<"[1]"<<setColor(green,black)<<"Save"<<resetColor()<<endl;
-    cout<<"[2]"<<setColor(red,black)<<"Cancel"<<resetColor()<<endl;
+    cout<<"[1] "<<setColor(green,black)<<"Save"<<resetColor()<<endl;
+    cout<<"[2] "<<setColor(red,black)<<"Cancel"<<resetColor()<<endl;
     int option;
     cin>>option;
     while(option != 1 && option != 2)

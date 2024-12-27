@@ -55,3 +55,11 @@ void newID(){
         for(reservation r : reservations) if(r.id == to_string(resID)) {flag = 1; break;}
     }while(flag);
 }
+
+void fin(){
+    if(cin.rdbuf()->in_avail() > 0)
+    {
+        std::cin.clear();           
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+}

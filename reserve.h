@@ -42,48 +42,70 @@ void reserveRoom()
     if(O == "0")return;
 
     cout<<"Enter Name: ";
-    cin.ignore();
+    int attempts=3;
     getline(cin, newReservation.name);
-    while(!Validations::NameValidation(newReservation.name)){
+    while(!Validations::NameValidation(newReservation.name) && --attempts){
         cout<<setColor(white,yellow)<<" Invalid name format "<<resetColor()<<endl<<"Please enter a valid name: ";
         getline(cin, newReservation.name);
     }
-
+    if(!attempts){
+        cout<<setColor(white, red)<<" Too many invalid attempts, going back to menu "<<resetColor()<<endl;
+        return;
+    }
+    attempts=3;
     cout<<"Enter national ID: ";
     cin>>newReservation.nat_id;
-    while(!Validations::NationalIDValidation(newReservation.nat_id)){
+    while(!Validations::NationalIDValidation(newReservation.nat_id) && --attempts){
         cout<<setColor(white,yellow)<<" Invalid national ID "<<resetColor()<<endl<<"Please enter a valid national ID: ";
         cin>>newReservation.nat_id;
     }
-
-
+    if(!attempts){
+        cout<<setColor(white, red)<<" Too many invalid attempts, going back to menu "<<resetColor()<<endl;
+        return;
+    }
+    attempts=3;
     cout<<"Enter e-mail: ";
     cin>>newReservation.email;
-    while(!Validations::EmailValidation(newReservation.email)){
+    while(!Validations::EmailValidation(newReservation.email) && --attempts){
         cout<<setColor(white,yellow)<<" Invalid email "<<resetColor()<<endl<<"Please enter a valid email: ";
         cin>>newReservation.email;
     }
-
+    if(!attempts){
+        cout<<setColor(white, red)<<" Too many invalid attempts, going back to menu "<<resetColor()<<endl;
+        return;
+    }
+    attempts=3;
     cout<<"Enter phone no: ";
     cin>>newReservation.phone;
-    while(!Validations::PhoneNumberValidaion(newReservation.phone)){
+    while(!Validations::PhoneNumberValidaion(newReservation.phone) && --attempts){
         cout<<setColor(white,yellow)<<" Invalid phone number "<<resetColor()<<endl<<"Please enter a valid phone number: ";
         cin>>newReservation.phone;
     }
-
-
+    if(!attempts){
+        cout<<setColor(white, red)<<" Too many invalid attempts, going back to menu "<<resetColor()<<endl;
+        return;
+    }
+    attempts=3;
     cout<<"Enter Check In date(DD-MM-YYYY): ";
     cin>>newReservation.check_in;
-    while(!Validations::DatesValidations(newReservation.check_in)){
+    while(!Validations::DatesValidations(newReservation.check_in) && --attempts){
         cout<<setColor(white,yellow)<<" Invalid date "<<resetColor()<<endl<<"Please enter date in the format DD-MM-YYYY: ";
         cin>>newReservation.check_in;
     }
-
+    if(!attempts){
+        cout<<setColor(white, red)<<" Too many invalid attempts, going back to menu "<<resetColor()<<endl;
+        return;
+    }
+    attempts=3;
     cout<<"Enter no of nights: ";
     cin>>newReservation.nights;
-    while(!Validations::NightsValidation(newReservation.nights)){
+    while(!Validations::NightsValidation(newReservation.nights) && --attempts){
         cout<<setColor(white,yellow)<<" Invalid number "<<resetColor()<<endl<<"Please enter a valid number of nights (maximum is 30): ";
         cin>>newReservation.nights;
+    }
+    if(!attempts){
+        cout<<setColor(white, red)<<" Too many invalid attempts, going back to menu "<<resetColor()<<endl;
+        return;
     }
     //---------------temporary placeholders for testing until checkAvailibilty func is finished----------//
     // cout<<"Enter room no: ";
@@ -117,9 +139,7 @@ void reserveRoom()
         cout<<"Choose room no: ";
         cin>>roomNumber;
     }
-
     newReservation.room_no = roomNumber;
-    rooms[searchRoomByNumber(roomNumber)].status = "Reserved";
 
     newID();
     newReservation.id = to_string(resID);
@@ -130,8 +150,8 @@ void reserveRoom()
     
     reservations.push_back(newReservation);
     bool x = sortReservations();
-    if(x)cout<<endl<<setColor(white, green)<<" Reservation is successful, reservation id:  "<<newReservation.id<<resetColor()<<endl<<endl;
-    else cout<<endl<<setColor(white, red)<<" Reservation has been canceled"<<resetColor()<<endl<<endl;
+    if(x)cout<<endl<<setColor(white, green)<<" Reservation is successful, reservation id: "<<newReservation.id<<' '<<resetColor()<<endl<<endl;
+    else cout<<endl<<setColor(white, red)<<" Reservation has been canceled "<<resetColor()<<endl<<endl;
 }
 
 /*void reservationReport()

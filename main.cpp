@@ -3,11 +3,13 @@
 #include "login.h"
 #include "colors.h"
 #include "io.h"
-#include "EditReservations.h"
+#include "edit.h"
 #include "cancel.h"
 #include "reserve.h"
 #include "report.h"
 #include "CheckIN.h"
+#include "CheckOut.h"
+
 using namespace std;
 
 bool loggedin = false;
@@ -45,7 +47,6 @@ void menu(){
         cout<<"[9] "<<"Reservations report"<<endl;
         cout<<"[10] "<<setColor(red, black)<<"Logout"<<resetColor()<<endl;
         cout<<"[11] "<<setColor(red, black)<<"Quit"<<resetColor()<<endl;
-
         cin>>opt;
         switch(opt){
             case 1:
@@ -58,19 +59,13 @@ void menu(){
                 cancelReservation();
                 break;
             case 4:
-                //checkOut();
+                CheckOut();
                 break;
-            case 5: //idk what this is supposed to do bsra7a
+            case 5: 
                 for(room r:rooms){
-                    if(r.status=="Available") cout<<r.room_no<<" "<<r.status<<" "<<r.type<<" "<<r.price<<endl;
+                    if(r.status=="Available" && searchReservationByRoomNumber(r.room_no)==-1) cout<<r.room_no<<" "<<r.status<<" "<<r.type<<" "<<r.price<<endl;
                 }
                 cout<<endl;
-                for(room r:rooms){
-                    if(r.status!="Available") cout<<r.room_no<<" "<<r.status<<" "<<r.type<<" "<<r.price<<endl;
-                }
-                fflush(stdin);
-                getline(cin,wackadoodle);
-
                 break;
             case 6:
                 viewCustomerDetails();
@@ -87,12 +82,10 @@ void menu(){
             case 10:
                 cout<<endl<<setColor(red, black)<<"---Logging Out---"<<resetColor()<<endl<<endl;
                 loggedin = 0;
-                save();
                 break;
             case 11:
                 cout<<setColor(red, black)<<"---Logging Out---"<<resetColor()<<endl;
                 cout<<"Goodbye!"<<endl;
-                save();
                 exit(0);
             default:
                 cout<<setColor(white,yellow)<<endl<<" Invalid input, options are numbered 1 through 11. "<<resetColor()<<endl;
@@ -107,8 +100,8 @@ int main(){
     reservationsOG = reservations;
     rooms = loadRooms();
     roomsOG = rooms;
-    today = "01-01-2025"; //if you want to set a custom date comment getDate() and change this
-    getDate(); 
+    today = "02-02-2025"; //if you want to set a custom date comment getDate() and change this
+    //getDate(); 
     //cout<<today<<endl;
     while(1){
         menu();

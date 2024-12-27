@@ -17,7 +17,7 @@ public:
                 return 0;
             }
         }
-        return 1;
+        return name.length() > 0;
 	}
 
     static bool NationalIDValidation(string ID)
@@ -51,8 +51,8 @@ public:
         }
 
         for (int i = 0; i < PhoneNumber.length(); i++) {
-            if (!isdigit(PhoneNumber[i]) && PhoneNumber[i]!='+') {
-
+            if (!isdigit(PhoneNumber[i])) {
+                if(!i && PhoneNumber[i]=='+') continue;
                 return 0;
             }
         }

@@ -10,9 +10,9 @@ void CANCEL(int idx)// takes index in the reservations vector
     reservation toBeCanceled = reservations[idx];
     int room_idx;
     room_idx = searchRoomByNumber(toBeCanceled.room_no);
-    if(rooms[room_idx].status == "Confirmed")
+    if(reservations[idx].confirm == "confirmed")
     {
-        cout<<setColor(white, red)<<" Sorry you can't cancel a confirmed room "<<resetColor()<<endl;
+        cout<<endl<<setColor(white, red)<<" Sorry you can't cancel a confirmed room "<<resetColor()<<endl;
         return;
     }
     reservations.erase(reservations.begin() + idx);
@@ -37,7 +37,7 @@ int cancelReservation()
     cin>>option;
     while( !( option == "0" || option == "1" || option == "2" ) )
     {
-        cout<<"Please enter a valid option"<<endl;
+        cout<<setColor(white, yellow)<<" Please enter a valid option "<<resetColor()<<endl;
         cin>>option;
     }
 
