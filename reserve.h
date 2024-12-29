@@ -90,7 +90,7 @@ void reserveRoom()
     attempts=3;
     cout<<"Enter Check In date(DD-MM-YYYY): ";
     cin>>newReservation.check_in;
-    while(!Validations::DatesValidations(newReservation.check_in) && --attempts){
+    while(!Validations::DatesValidations2(newReservation.check_in) && --attempts){
         cout<<setColor(white,yellow)<<" Invalid date "<<resetColor()<<endl<<"Please enter date in the format DD-MM-YYYY: ";
         cin>>newReservation.check_in;
     }
@@ -139,7 +139,7 @@ void reserveRoom()
         cin>>roomNumber;
     }
     newReservation.room_no = roomNumber;
-
+    rooms[searchRoomByNumber(roomNumber)].status = "Reserved";
     newID();
     newReservation.id = to_string(resID);
 

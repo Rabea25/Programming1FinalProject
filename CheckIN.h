@@ -69,12 +69,7 @@ void checkIN()
             if (rooms[i].status == "Available")
                 rooms[i].status = "Reserved";
 
-            else if (rooms[i].status == "Reserved")
-            {
-                cout<<endl<<setColor(white, red)<<" Room is already reserved. "<<resetColor()<<endl<<endl;
-                return;
-            }
-            cout<<rooms[i].status<<endl;
+    
             break;
         }
     }

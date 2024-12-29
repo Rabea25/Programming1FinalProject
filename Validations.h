@@ -73,7 +73,49 @@ public:
         int month = stoi(monthString);
         int year = stoi(yearString);
 
-        if (day > 30 || day < 1)
+        if (day > 31 || day < 1)
+            return 0;
+
+        if (month > 12 || month < 1)
+            return 0;
+
+        /*if (year < 2025)
+        {
+            if (day >= 29 && day <= 31 && month == 12 && year == 2024)
+                return 1;
+            return 0;
+        }*/
+
+        string date2 = "";
+        if(day<10){date2+='0';date2+='0'+day;}
+        else date2+=to_string(day);
+        date2+="-";
+        if(month<10){date2+='0';date2+='0'+month;}
+        else date2+=to_string(month);
+        date2+="-";
+        date2+=to_string(year);
+
+        date = date2;
+
+        return 1;
+    }
+
+    static bool DatesValidations2(string &date)
+    {
+        char Date[11]; //El 11 3shan el null fel a5er beta3 strcpy
+        strcpy(Date, date.c_str());
+
+        char* dayString = strtok(Date, "-");
+        char* monthString = strtok(nullptr, "-");
+        char* yearString = strtok(nullptr, "-");
+
+        if (!dayString || !monthString || !yearString) return 0;
+
+        int day = stoi(dayString);
+        int month = stoi(monthString);
+        int year = stoi(yearString);
+
+        if (day > 31 || day < 1)
             return 0;
 
         if (month > 12 || month < 1)
@@ -81,7 +123,7 @@ public:
 
         if (year < 2025)
         {
-            if (day > 29 && day < 31 && month == 12 && year == 2024)
+            if (day >= 29 && day <= 31 && month == 12 && year == 2024)
                 return 1;
             return 0;
         }

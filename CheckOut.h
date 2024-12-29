@@ -64,9 +64,7 @@ void CheckOut()
         
         if (rooms[i].room_no == roomNumber)
         {
-            if (rooms[i].status == "Reserved")
-                rooms[i].status = "Available";
-
+            rooms[i].status = "Available";
             PricePerNight = stoi(rooms[i].price);
             break;
 
@@ -82,27 +80,27 @@ void CheckOut()
     getline(CID, token, '-');
     checkIn.tm_mday = stoi(token);
 
-    cin.ignore();
+    //cin.ignore();
     getline(CID, token, '-');
     checkIn.tm_mon = stoi(token) - 1;
 
-    cin.ignore();
+    //cin.ignore();
     getline(CID, token, '-');
     checkIn.tm_year = stoi(token) - 1900;
 
     tm today = {};
     stringstream TD(TodayDate);
-    cin.ignore();
+    //cin.ignore();
     getline(TD, token, '-');
     today.tm_mday = stoi(token);
 
     //tm betsta3mel el 0 indecies bellah eftekryyyyy
-    cin.ignore();
+    //cin.ignore();
     getline(TD, token, '-');
     today.tm_mon = stoi(token) - 1;
 
     //since 1900 w ma7ade4 ye3raf leh as he mentioned be4
-    cin.ignore();
+    //cin.ignore();
     getline(TD, token, '-');
     today.tm_year = stoi(token) - 1900;
 
