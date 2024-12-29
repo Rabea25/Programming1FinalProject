@@ -34,6 +34,8 @@ void menu(){
         }
         else cout<<setColor(white,yellow)<<endl<<" Invalid input. "<<resetColor()<<endl<<endl;
     }
+    reservations = reservationsOG;
+    rooms = roomsOG;
     cout<<setColor(brightWhite, black)<<"Welcome staff member, this is the main menu:"<<endl<<endl;
     while(loggedin){ 
         cout<<"[1] "<<"Reserve a room"<<endl;
@@ -97,8 +99,8 @@ int main(){
     cout<<resetColor();
     users = loadUsers();
     reservations = loadReservations();
-    reservationsOG = reservations;
     rooms = loadRooms();
+    reservationsOG = reservations;
     roomsOG = rooms;
     today = "02-02-2025"; //if you want to set a custom date comment getDate() and change this
     //getDate(); 
