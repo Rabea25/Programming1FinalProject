@@ -1,7 +1,3 @@
-// just call editReservationDetails() when you want to edit :)
-// missing the update room status
-// i think it's done bas i did go to the techincal writing w nemt fel nos fa momken akon naset 7aga xD // lazy ass
-
 #include <bits/stdc++.h>
 #include "structs.h"
 #include "colors.h"
@@ -21,7 +17,8 @@ void EDIT(int idx) // takes index in the reservations vector
     int attempts=0;
     while (!Validations::NameValidation(s) && s!="")
     {
-        cout <<setColor(white, yellow)<< " Please enter a valid name "<<resetColor()<<endl;
+        cout<<setColor(white, yellow)<< " Please enter a valid name "<<resetColor()<<endl;
+        cin.ignore();
         getline(cin, s);
         attempts++;
         if (attempts == 3)
@@ -32,7 +29,8 @@ void EDIT(int idx) // takes index in the reservations vector
     }
     tempReservation.name = (s=="" ? reservations[idx].name : s);
 
-    cout << "Phone: ";
+    cout<<"Phone: ";
+    cin.ignore();
     getline(cin, s);
     attempts = 0;
     while (!Validations::PhoneNumberValidaion(s) && s!="")
@@ -62,7 +60,6 @@ void EDIT(int idx) // takes index in the reservations vector
             return;
         }
     }
-
     tempReservation.email = (s=="" ? reservations[idx].email : s);
 
     cout << "Check-in date: ";
@@ -101,7 +98,8 @@ void EDIT(int idx) // takes index in the reservations vector
         cout<<"Choose room no: ";
         string roomNumber; 
         cin>>roomNumber;
-        while(searchRoomByNumber(roomNumber)==-1 || rooms[searchRoomByNumber(roomNumber)].type!=xdddd){
+        while(searchRoomByNumber(roomNumber)==-1 || rooms[searchRoomByNumber(roomNumber)].type!=xdddd
+            || rooms[searchRoomByNumber(roomNumber)].status!="Available" || searchReservationByRoomNumber(roomNumber)!=-1){
             cout<<setColor(white,yellow)<<" Invalid room number or mismatching category "<<resetColor()<<endl;
             cout<<"Choose room no: ";
             cin>>roomNumber;

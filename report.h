@@ -2,13 +2,11 @@
 #include "structs.h"
 #include "colors.h"
 #include "search.h"
-
 #pragma once
 
 using namespace std;
 
 void reservationReport(){
-	
 	cout<<endl<<"Reservation Report:"<<endl;
     cout<<"[0] "<<setColor(red, black)<<"Back"<<resetColor()<<endl;
     cout<<"[1] Continue"<<endl;
@@ -33,11 +31,6 @@ void reservationReport(){
         cout<<setColor(white, red)<<" Too many invalid attempts, going back to menu "<<resetColor()<<endl;
         return;
     }
-	//if(!validateDate(date)){
-	//cout<<endl<<setColor(white, yellow)<<"Invalid Date or incorrect format"<<resetColor()<<endl<<endl;
-	//	return;
-	//}
-
 
 	vector<reservation> report;
 
@@ -51,11 +44,13 @@ void reservationReport(){
 	}
 
 	cout<<"Reservations on "<<date<<":"<<endl<<endl;
-	cout<<"ID\tRoom\tStatus\t\tDate\t\tNo of nights\tName\t\tNational ID\t\tE-mail\t\t\tPhone"<<endl;
+	cout<<left;
+    cout<<setw(20)<<"ID"<<setw(20)<<"Room NO"<<setw(20)<<"Status"<<setw(20)<<"Date"<<setw(20)<<"NO of nights"
+        <<setw(20)<<"Name"<<setw(20)<<"National ID"<<setw(20)<<"E-Mail"<<setw(20)<<"Phone"<<endl;
 	for(reservation r:report){
-		cout<<r.id<<"\t"<<r.room_no<<"\t"<<r.confirm<<"\t"<<r.check_in<<"\t"<<r.nights<<"\t\t"<<r.name<<"\t"<<r.nat_id<<"\t\t"<<r.email<<"\t"<<r.phone<<endl;
+	    cout<<setw(20)<<r.id<<setw(20)<<r.room_no<<setw(20)<<r.confirm<<setw(20)<<r.check_in<<setw(20)<<r.nights
+        <<setw(20)<<r.name<<setw(20)<<r.nat_id<<setw(20)<<r.email<<setw(20)<<r.phone<<endl;
 	}
 	cout<<endl;
 	return;
-
 }

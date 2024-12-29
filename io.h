@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #include "structs.h"
 #include "colors.h"
+
 using namespace std;
 
 vector<user> loadUsers(){
@@ -30,7 +31,7 @@ vector<user> loadUsers(){
 
 vector<reservation> loadReservations(){
     vector<reservation> reservations;
-    ifstream file("Reservation.txt");
+    ifstream file("reservations.txt");
     if(file.is_open()){
         string line;
         while(getline(file, line)){
@@ -51,7 +52,7 @@ vector<reservation> loadReservations(){
                 else tmp+=c;
             }
             r.phone = tmp;
-            resID = max(resID, stoll(r.id)+1);
+            // resID = max(resID, stoll(r.id)+1);
             reservations.push_back(r);
         }
     }
@@ -63,7 +64,7 @@ vector<reservation> loadReservations(){
 
 vector<room> loadRooms(){
     vector<room> rooms;
-    ifstream file("rooms.txt");
+    ifstream file("Room.txt");
     if(file.is_open()){
         string line;
         while(getline(file, line)){
@@ -79,7 +80,6 @@ vector<room> loadRooms(){
                 else tmp+=c;
             }
             r.price = tmp;
-
             rooms.push_back(r);
         }
     }
@@ -90,7 +90,6 @@ vector<room> loadRooms(){
 }
 
 bool save(){
-
     cout<<endl<<"Save Changes?"<<endl;
     cout<<"[1] "<<setColor(green,black)<<"Save"<<resetColor()<<endl;
     cout<<"[2] "<<setColor(red,black)<<"Cancel"<<resetColor()<<endl;
@@ -104,12 +103,11 @@ bool save(){
     if(option == 2)
     {
         reservations = reservationsOG;
-        roomsOG = rooms;
+        rooms = roomsOG;
         return 0;
     }
 
-
-    ofstream file("Reservation.txt");
+    ofstream file("reservations.txt");
     if(file.is_open()){
         for(reservation r:reservations){
             file<<r.id<<","<<r.room_no<<","<<r.confirm<<","<<r.name<<","<<r.nat_id<<","<<r.nights<<","<<r.check_in<<","<<r.email<<","<<r.phone<<endl;
@@ -118,7 +116,7 @@ bool save(){
     else cout<<setColor(white, red)<<"Error opening Reservation.txt file."<<resetColor()<<endl;
     file.close();
 
-    ofstream file2("rooms.txt");
+    ofstream file2("Room.txt");
     if(file2.is_open()){
         for(room r:rooms){
             file2<<r.room_no<<" "<<r.status<<" "<<r.type<<" "<<r.price<<endl;
@@ -130,9 +128,3 @@ bool save(){
     roomsOG = rooms;
     return 1;
 }
-
-//void cancelSave() 7atetha fel save function w 5las
-//{
-//    reservations = reservationsOG;
-//    roomsOG = rooms;
-//}

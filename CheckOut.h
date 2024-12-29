@@ -1,11 +1,7 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <ctime>
-#include <vector>
-#include <string>
+#include <bits/stdc++.h>
 #include "structs.h"
 #include "reserve.h"
+
 using namespace std;
 
 void CheckOut()
@@ -26,9 +22,7 @@ void CheckOut()
     string reservationID;
     cin >> reservationID;
 
-    //cout << "Please enter today's date" << endl;
     string TodayDate = today;
-    //cin >> TodayDate;
 
     string roomNumber;
     string CheckINDate;
@@ -58,13 +52,13 @@ void CheckOut()
         cout <<setColor(white, yellow)<< "Invalid Reservation ID "<<resetColor()<<endl;
         return;
     }
-    if (flag == -1){
+    if (flag == -1)
+    {
         cout <<setColor(white, red)<< " Customer hasn't checked in yet "<<resetColor()<<endl;
         return;
     }
 
     //Part room.txt
-
     for (int i = 0; i < rooms.size(); i++)
     {
         
@@ -80,46 +74,50 @@ void CheckOut()
 
     }
 
-        //Calculating el bill '_'
-        tm checkIn = {};
-        stringstream CID(CheckINDate);
-        string token;
-        getline(CID, token, '-');
-        checkIn.tm_mday = stoi(token);
+    //Calculating el bill '_'
+    tm checkIn = {};
+    stringstream CID(CheckINDate);
+    string token;
+    cin.ignore();
+    getline(CID, token, '-');
+    checkIn.tm_mday = stoi(token);
 
-        getline(CID, token, '-');
-        checkIn.tm_mon = stoi(token) - 1;
+    cin.ignore();
+    getline(CID, token, '-');
+    checkIn.tm_mon = stoi(token) - 1;
 
-        getline(CID, token, '-');
-        checkIn.tm_year = stoi(token) - 1900;
+    cin.ignore();
+    getline(CID, token, '-');
+    checkIn.tm_year = stoi(token) - 1900;
 
+    tm today = {};
+    stringstream TD(TodayDate);
+    cin.ignore();
+    getline(TD, token, '-');
+    today.tm_mday = stoi(token);
 
-        tm today = {};
-        stringstream TD(TodayDate);
-        getline(TD, token, '-');
-        today.tm_mday = stoi(token);
+    //tm betsta3mel el 0 indecies bellah eftekryyyyy
+    cin.ignore();
+    getline(TD, token, '-');
+    today.tm_mon = stoi(token) - 1;
 
-        //tm betsta3mel el 0 indecies bellah eftekryyyyy
-        getline(TD, token, '-');
-        today.tm_mon = stoi(token) - 1;
+    //since 1900 w ma7ade4 ye3raf leh as he mentioned be4
+    cin.ignore();
+    getline(TD, token, '-');
+    today.tm_year = stoi(token) - 1900;
 
-        //since 1900 w ma7ade4 ye3raf leh as he mentioned be4
-        getline(TD, token, '-');
-        today.tm_year = stoi(token) - 1900;
+    //3shan a7awel lel no of seconds:
+    time_t checkInTime = mktime(&checkIn);
+    time_t todayTime = mktime(&today);
 
-        //3shan a7awel lel no of seconds:
-        time_t checkInTime = mktime(&checkIn);
-        time_t todayTime = mktime(&today);
+    double seconds = difftime(todayTime, checkInTime);
 
-        double seconds = difftime(todayTime, checkInTime);
+    NoOfNights = max(seconds / (60 * 60 * 24), 1.0);
+    Bill = NoOfNights * PricePerNight;
 
-        NoOfNights = max(seconds / (60 * 60 * 24), 1.0);
-        Bill = NoOfNights * PricePerNight;
-
-        cout << "The required bill is: " << Bill << endl;
+    cout << "The required bill is: " << Bill << endl;
         
-        bool x = sortReservations();
-        if(x)cout<<endl<<setColor(white, green)<<" Checked out succesfully. "<<resetColor()<<endl<<endl;
-        else cout<<endl<<setColor(white, red)<<" Check-out has been cancelled. "<<resetColor()<<endl<<endl;
+    bool x = sortReservations();
+    if(x)cout<<endl<<setColor(white, green)<<" Checked out succesfully. "<<resetColor()<<endl<<endl;
+    else cout<<endl<<setColor(white, red)<<" Check-out has been cancelled. "<<resetColor()<<endl<<endl;
 }
-

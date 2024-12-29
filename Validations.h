@@ -1,7 +1,8 @@
-#pragma once
 #include <iostream>
 #include <string>
 #include <regex>
+#pragma once
+
 using namespace std;
 
 class Validations
@@ -28,7 +29,6 @@ public:
         }
         for (int i = 0; i < ID.length(); i++) {
             if (!isdigit(ID[i])) {
-
                 return 0;
             }
         }
@@ -39,7 +39,6 @@ public:
     static bool EmailValidation(string email)
     {
         const regex pattern(R"(^[a-zA-Z0-9._%+-]+@gmail\.com$)");
-        
         return regex_match(email, pattern);
     }
 
@@ -64,13 +63,11 @@ public:
         char Date[11]; //El 11 3shan el null fel a5er beta3 strcpy
         strcpy(Date, date.c_str());
 
-
         char* dayString = strtok(Date, "-");
         char* monthString = strtok(nullptr, "-");
         char* yearString = strtok(nullptr, "-");
 
         if (!dayString || !monthString || !yearString) return 0;
-
 
         int day = stoi(dayString);
         int month = stoi(monthString);
@@ -101,7 +98,6 @@ public:
         date = date2;
 
         return 1;
-
     }
 
     static bool NightsValidation(string nights)
@@ -113,8 +109,4 @@ public:
         }
         return stoi(nights) <= 30;
     }
-
-    
-
 };
-

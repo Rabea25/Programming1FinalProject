@@ -12,8 +12,8 @@ bool login(vector<user> users){
     string username="", pw="";
     char c;
     cout<<"Enter username: ";
-    cin>>username;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); //in case user enters space separated input, getch won't braek
+    cin.ignore();
+    getline(cin, username);
     cout<<"Enter password: ";
     while((c=_getch())!='\r'){
         if(c=='\b'){

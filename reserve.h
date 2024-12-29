@@ -1,10 +1,10 @@
-// validation required when adding a reservation, i.e, checkAvailablity() func
 #include <bits/stdc++.h>
 #include "structs.h"
 #include "colors.h"
 #include "search.h"
 #include "Validations.h"
 #pragma once
+
 using namespace std;
 
 bool sortReservations()
@@ -43,9 +43,11 @@ void reserveRoom()
 
     cout<<"Enter Name: ";
     int attempts=3;
+    cin.ignore();
     getline(cin, newReservation.name);
     while(!Validations::NameValidation(newReservation.name) && --attempts){
         cout<<setColor(white,yellow)<<" Invalid name format "<<resetColor()<<endl<<"Please enter a valid name: ";
+        cin.ignore();
         getline(cin, newReservation.name);
     }
     if(!attempts){
@@ -107,10 +109,6 @@ void reserveRoom()
         cout<<setColor(white, red)<<" Too many invalid attempts, going back to menu "<<resetColor()<<endl;
         return;
     }
-    //---------------temporary placeholders for testing until checkAvailibilty func is finished----------//
-    // cout<<"Enter room no: ";
-    // cin>>newReservation.room_no;
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
     int option;
     string cat;
@@ -134,7 +132,8 @@ void reserveRoom()
     cout<<"Choose room no: ";
     string roomNumber; 
     cin>>roomNumber;
-    while(searchRoomByNumber(roomNumber)==-1 || rooms[searchRoomByNumber(roomNumber)].type!=xdddd){
+    while(searchRoomByNumber(roomNumber)==-1 || rooms[searchRoomByNumber(roomNumber)].type!=xdddd
+        || rooms[searchRoomByNumber(roomNumber)].status!="Available" || searchReservationByRoomNumber(roomNumber)!=-1){
         cout<<setColor(white,yellow)<<" Invalid room number or mismatching category "<<resetColor()<<endl;
         cout<<"Choose room no: ";
         cin>>roomNumber;
@@ -143,24 +142,11 @@ void reserveRoom()
 
     newID();
     newReservation.id = to_string(resID);
-    
 
     newReservation.confirm = "unconfirmed";
-    
     
     reservations.push_back(newReservation);
     bool x = sortReservations();
     if(x)cout<<endl<<setColor(white, green)<<" Reservation is successful, reservation id: "<<newReservation.id<<' '<<resetColor()<<endl<<endl;
     else cout<<endl<<setColor(white, red)<<" Reservation has been canceled "<<resetColor()<<endl<<endl;
 }
-
-/*void reservationReport()
-{
-    cout<<endl<<" Reservation Report! "<<endl;
-    cout<<"ID\tRoom\tStatus\t\tDate\t\tNo of nights\tName\t\tNational ID\t\tE-mail\t\t\tPhone\n";
-    for(auto r:reservations){
-        cout<<r.id<<"\t"<<r.room_no<<"\t"<<r.confirm<<"\t"<<r.check_in<<"\t"<<r.nights<<"\t\t"<<r.name<<"\t"<<r.nat_id<<"\t\t"<<r.email<<"\t"<<r.phone<<"\n";
-    }
-    cout<<"\n\n";
-}
-*/

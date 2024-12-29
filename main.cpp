@@ -13,9 +13,6 @@
 using namespace std;
 
 bool loggedin = false;
-string wackadoodle;
-
-
 
 void menu(){
     int opt;
@@ -34,8 +31,6 @@ void menu(){
         }
         else cout<<setColor(white,yellow)<<endl<<" Invalid input. "<<resetColor()<<endl<<endl;
     }
-    reservations = reservationsOG;
-    rooms = roomsOG;
     cout<<setColor(brightWhite, black)<<"Welcome staff member, this is the main menu:"<<endl<<endl;
     while(loggedin){ 
         cout<<"[1] "<<"Reserve a room"<<endl;
@@ -52,10 +47,10 @@ void menu(){
         cin>>opt;
         switch(opt){
             case 1:
-                reserveRoom(); //i think is done
+                reserveRoom();
                 break;
             case 2:
-                checkIN(); //all goodie 
+                checkIN();
                 break;
             case 3:
                 cancelReservation();
@@ -99,12 +94,11 @@ int main(){
     cout<<resetColor();
     users = loadUsers();
     reservations = loadReservations();
-    rooms = loadRooms();
     reservationsOG = reservations;
+    rooms = loadRooms();
     roomsOG = rooms;
-    today = "02-02-2025"; //if you want to set a custom date comment getDate() and change this
-    //getDate(); 
-    //cout<<today<<endl;
+    getDate();
+    // today = "02-02-2025"; //if you want to set a custom date comment getDate() and change this
     while(1){
         menu();
     }
